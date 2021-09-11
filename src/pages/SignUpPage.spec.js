@@ -69,5 +69,18 @@ describe("SignUpPage.svelte", ()=>{
         expect(btn).toBeEnabled();
       });
     });
+    describe('WHEN: the password fields have different input', ()=>{
+      it('THEN: The sign up button is disabled', async ()=>{
+        render(SignUpPage);
+        const passwordInput1 = screen.getByLabelText('password');
+        const passwordInput2 = screen.getByLabelText('re-type password');
+        const btn = screen.getByRole('button', { name: 'sign up'});
+
+        await userEvent.type(passwordInput1, 'qwer');
+        await userEvent.type(passwordInput2, 'asdf');
+
+        expect(btn).toBeDisabled();
+      });
+    });
   });
 });
