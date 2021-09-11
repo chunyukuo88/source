@@ -3,4 +3,4 @@
 	export let name;
 </script>
 
-<!--<SignUpPage/>-->
+<SignUpPage/>
