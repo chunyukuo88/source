@@ -1,23 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1631396715511" clover="3.2.0">
-  <project timestamp="1631396715511" name="All files">
-    <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1" elements="15" coveredelements="15" complexity="0" loc="14" ncloc="14" packages="1" files="1" classes="1"/>
+<coverage generated="1631397574434" clover="3.2.0">
+  <project timestamp="1631397574434" name="All files">
+    <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2" elements="18" coveredelements="18" complexity="0" loc="12" ncloc="12" packages="1" files="1" classes="1"/>
     <file name="SignUpPage.svelte" path="/Users/alexgochenour/IdeaProjects/source/src/pages/SignUpPage.svelte">
-      <metrics statements="14" coveredstatements="14" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="1"/>
+      <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
       <line num="2" count="10" type="stmt"/>
-      <line num="5" count="18" type="stmt"/>
-      <line num="6" count="18" type="stmt"/>
-      <line num="9" count="18" type="stmt"/>
-      <line num="10" count="18" type="stmt"/>
-      <line num="12" count="46" type="stmt"/>
-      <line num="15" count="10" type="stmt"/>
+      <line num="5" count="14" type="cond" truecount="2" falsecount="0"/>
+      <line num="10" count="10" type="stmt"/>
+      <line num="11" count="10" type="stmt"/>
+      <line num="12" count="10" type="stmt"/>
+      <line num="13" count="10" type="stmt"/>
       <line num="16" count="10" type="stmt"/>
-      <line num="17" count="10" type="stmt"/>
-      <line num="18" count="10" type="stmt"/>
-      <line num="21" count="10" type="stmt"/>
-      <line num="24" count="10" type="stmt"/>
-      <line num="27" count="10" type="stmt"/>
-      <line num="30" count="10" type="stmt"/>
+      <line num="18" count="18" type="stmt"/>
+      <line num="19" count="10" type="stmt"/>
+      <line num="22" count="10" type="stmt"/>
+      <line num="24" count="18" type="stmt"/>
+      <line num="25" count="10" type="stmt"/>
     </file>
   </project>
 </coverage>

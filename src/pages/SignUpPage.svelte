@@ -1,15 +1,10 @@
 <script>
     let disabled = true;
-    let pw1, pw2;
-    const evaluatePwEquality1 = (event) => {
-      pw1 = event.target.value;
-      refreshDisabled();
-    };
-    const evaluatePwEquality2 = (event) => {
-      pw2 = event.target.value;
-      refreshDisabled();
-    };
-    const refreshDisabled = () => disabled = (pw1 !== pw2);
+    let password, confirmPw;
+
+    $: disabled = (password && confirmPw)
+      ? (password !== confirmPw )
+      : true;
 </script>
 
 <h1>sign up</h1>
@@ -20,13 +15,13 @@
 </label>
 <input type="password"
        id="password"
-       on:input={evaluatePwEquality1}/>
+       on:input={event => password = event.target.value}/>
 <label for="repeat-password">
     re-type password
 </label>
 <input type="password"
        id="repeat-password"
-       on:input={evaluatePwEquality2}/>
+       on:input={event => confirmPw = event.target.value}/>
 <button {disabled}>
     sign up
 </button>
