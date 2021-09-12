@@ -18,6 +18,7 @@
     "@testing-library/user-event": "^13.2.1",
     "babel-jest": "^26.6.3",
     "jest": "^26.6.3",
+    "msw": "^0.35.0",
     "rollup": "^2.3.4",
     "rollup-plugin-css-only": "^3.1.0",
     "rollup-plugin-livereload": "^2.0.0",
@@ -27,6 +28,7 @@
     "svelte-jester": "^1.8.2"
   },
   "dependencies": {
+    "axios": "^0.21.4",
     "sirv-cli": "^1.0.0"
   },
   "jest": {
