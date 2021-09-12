@@ -1,21 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1631397574434" clover="3.2.0">
-  <project timestamp="1631397574434" name="All files">
-    <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2" elements="18" coveredelements="18" complexity="0" loc="12" ncloc="12" packages="1" files="1" classes="1"/>
+<coverage generated="1631464794666" clover="3.2.0">
+  <project timestamp="1631464794666" name="All files">
+    <metrics statements="23" coveredstatements="19" conditionals="12" coveredconditionals="12" methods="1" coveredmethods="0" elements="36" coveredelements="31" complexity="0" loc="23" ncloc="23" packages="1" files="2" classes="2"/>
     <file name="SignUpPage.svelte" path="/Users/alexgochenour/IdeaProjects/source/src/pages/SignUpPage.svelte">
-      <metrics statements="12" coveredstatements="12" conditionals="4" coveredconditionals="4" methods="2" coveredmethods="2"/>
-      <line num="2" count="10" type="stmt"/>
-      <line num="5" count="14" type="cond" truecount="2" falsecount="0"/>
-      <line num="10" count="10" type="stmt"/>
-      <line num="11" count="10" type="stmt"/>
-      <line num="12" count="10" type="stmt"/>
-      <line num="13" count="10" type="stmt"/>
-      <line num="16" count="10" type="stmt"/>
-      <line num="18" count="18" type="stmt"/>
-      <line num="19" count="10" type="stmt"/>
-      <line num="22" count="10" type="stmt"/>
-      <line num="24" count="18" type="stmt"/>
-      <line num="25" count="10" type="stmt"/>
+      <metrics statements="18" coveredstatements="18" conditionals="12" coveredconditionals="12" methods="0" coveredmethods="0"/>
+      <line num="2" count="1" type="stmt"/>
+      <line num="4" count="11" type="stmt"/>
+      <line num="7" count="17" type="cond" truecount="2" falsecount="0"/>
+      <line num="12" count="1" type="stmt"/>
+      <line num="16" count="11" type="stmt"/>
+      <line num="17" count="11" type="stmt"/>
+      <line num="18" count="11" type="stmt"/>
+      <line num="19" count="19" type="cond" truecount="2" falsecount="0"/>
+      <line num="21" count="11" type="stmt"/>
+      <line num="22" count="11" type="stmt"/>
+      <line num="23" count="24" type="cond" truecount="2" falsecount="0"/>
+      <line num="25" count="11" type="stmt"/>
+      <line num="26" count="11" type="stmt"/>
+      <line num="28" count="39" type="cond" truecount="2" falsecount="0"/>
+      <line num="30" count="11" type="stmt"/>
+      <line num="31" count="11" type="stmt"/>
+      <line num="33" count="39" type="cond" truecount="2" falsecount="0"/>
+      <line num="35" count="11" type="stmt"/>
+    </file>
+    <file name="utils.js" path="/Users/alexgochenour/IdeaProjects/source/src/pages/utils.js">
+      <metrics statements="5" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
+      <line num="1" count="1" type="stmt"/>
+      <line num="2" count="0" type="stmt"/>
+      <line num="3" count="0" type="stmt"/>
+      <line num="4" count="0" type="stmt"/>
+      <line num="5" count="0" type="stmt"/>
     </file>
   </project>
 </coverage>

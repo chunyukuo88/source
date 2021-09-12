@@ -25,28 +25,28 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>20/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/4</span>
+                <span class='fraction'>12/12</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>12/12</span>
+                <span class='fraction'>18/18</span>
             </div>
         
             
@@ -84,58 +84,88 @@
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<a name='L28'></a><a href='#L28'>28</a>
+<a name='L29'></a><a href='#L29'>29</a>
+<a name='L30'></a><a href='#L30'>30</a>
+<a name='L31'></a><a href='#L31'>31</a>
+<a name='L32'></a><a href='#L32'>32</a>
+<a name='L33'></a><a href='#L33'>33</a>
+<a name='L34'></a><a href='#L34'>34</a>
+<a name='L35'></a><a href='#L35'>35</a>
+<a name='L36'></a><a href='#L36'>36</a>
+<a name='L37'></a><a href='#L37'>37</a>
+<a name='L38'></a><a href='#L38'>38</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">17x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">24x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">18x</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">&lt;script&gt;
+    import { sendFormDataToBackend } from './utils';
+&nbsp;
     let disabled = true;
-    let password, confirmPw;
+    let username, email, password, confirmPw;
 &nbsp;
     $: disabled = (password &amp;&amp; confirmPw)
       ? (password !== confirmPw )
       : true;
+&nbsp;
+    const submit = () =&gt; {
+      sendFormDataToBackend(username, email, password);
+    }
 &lt;/script&gt;
 &nbsp;
 &lt;h1&gt;sign up&lt;/h1&gt;
-&lt;label for="username"&gt;username&lt;/label&gt;&lt;input id="username"/&gt;
-&lt;label for="email"&gt;email&lt;/label&gt;&lt;input id="email"/&gt;
-&lt;label for="password"&gt;
-    password
-&lt;/label&gt;
+&lt;label for="username"&gt;username&lt;/label&gt;
+&lt;input id="username"
+       bind:value={username}/&gt;
+&nbsp;
+&lt;label for="email"&gt;email&lt;/label&gt;
+&lt;input id="email"
+       bind:value={email}/&gt;
+&nbsp;
+&lt;label for="password"&gt;password&lt;/label&gt;
 &lt;input type="password"
        id="password"
-       on:input={event =&gt; password = event.target.value}/&gt;
-&lt;label for="repeat-password"&gt;
-    re-type password
-&lt;/label&gt;
+       bind:value={password}/&gt;
+&nbsp;
+&lt;label for="confirmPw"&gt;re-type password&lt;/label&gt;
 &lt;input type="password"
-       id="repeat-password"
-       on:input={event =&gt; confirmPw = event.target.value}/&gt;
-&lt;button {disabled}&gt;
+       id="confirmPw"
+       bind:value={confirmPw}/&gt;
+&nbsp;
+&lt;button {disabled} on:click={submit}&gt;
     sign up
 &lt;/button&gt;
 &nbsp;</pre></td></tr></table></pre>
@@ -145,7 +175,7 @@
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Sep 11 2021 17:59:34 GMT-0400 (Eastern Daylight Time)
+                at Sun Sep 12 2021 12:39:54 GMT-0400 (Eastern Daylight Time)
             </div>
         </div>
         <script src="prettify.js"></script>

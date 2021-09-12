@@ -2,6 +2,9 @@ import SignUpPage from "./SignUpPage.svelte";
 import { render, screen } from "@testing-library/svelte";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
+import { sendFormDataToBackend } from './utils';
+
+jest.mock('./utils');
 
 describe("SignUpPage.svelte", ()=>{
   describe("Layout rendering", ()=>{
@@ -61,10 +64,10 @@ describe("SignUpPage.svelte", ()=>{
         const passwordInput1 = screen.getByLabelText('password');
         const passwordInput2 = screen.getByLabelText('re-type password');
         const btn = screen.getByRole('button', { name: 'sign up'});
-        const crappyPassword = 'crappyPassword';
+        const lamePassword = 'lamePassword';
 
-        await userEvent.type(passwordInput1, crappyPassword);
-        await userEvent.type(passwordInput2, crappyPassword);
+        await userEvent.type(passwordInput1, lamePassword);
+        await userEvent.type(passwordInput2, lamePassword);
 
         expect(btn).toBeEnabled();
       });
@@ -80,6 +83,28 @@ describe("SignUpPage.svelte", ()=>{
         await userEvent.type(passwordInput2, 'asdf');
 
         expect(btn).toBeDisabled();
+      });
+    });
+    describe('GIVEN: username, email, and matching passwords,', ()=>{
+      describe('WHEN: The submission button is clicked,', ()=>{
+        it('THEN: The four values are POSTed to the back end.', async ()=>{
+          sendFormDataToBackend.mockImplementation(jest.fn());
+          render(SignUpPage);
+          const username = screen.getByLabelText('username');
+          const email = screen.getByLabelText('email');
+          const passwordInput1 = screen.getByLabelText('password');
+          const passwordInput2 = screen.getByLabelText('re-type password');
+          const btn = screen.getByRole('button', { name: 'sign up'});
+          const lamePassword = 'lamePassword';
+
+          await userEvent.type(username, 'username');
+          await userEvent.type(email, 'test@test.com');
+          await userEvent.type(passwordInput1, lamePassword);
+          await userEvent.type(passwordInput2, lamePassword);
+          await userEvent.click(btn);
+
+          expect(sendFormDataToBackend).toBeCalledWith('username', 'test@test.com', lamePassword);
+        });
       });
     });
   });
