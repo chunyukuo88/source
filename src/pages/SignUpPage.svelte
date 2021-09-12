@@ -10,6 +10,11 @@
 
     const submit = () => {
       sendFormDataToBackend(username, email, password);
+      alert('Form data has been submitted');
+      username = '';
+      email = '';
+      password = '';
+      confirmPw = '';
     }
 </script>
 

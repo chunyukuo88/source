@@ -105,6 +105,29 @@ describe("SignUpPage.svelte", ()=>{
 
           expect(sendFormDataToBackend).toBeCalledWith('username', 'test@test.com', lamePassword);
         });
+        it('AND: The user is notified, and the form is cleared.', async ()=>{
+          sendFormDataToBackend.mockImplementation(jest.fn());
+          const spy = jest.spyOn(window, 'alert').mockImplementation(jest.fn());
+          render(SignUpPage);
+          const username = screen.getByLabelText('username');
+          const email = screen.getByLabelText('email');
+          const passwordInput1 = screen.getByLabelText('password');
+          const passwordInput2 = screen.getByLabelText('re-type password');
+          const btn = screen.getByRole('button', { name: 'sign up'});
+          const lamePassword = 'lamePassword';
+
+          await userEvent.type(username, 'some username');
+          await userEvent.type(email, 'some email address');
+          await userEvent.type(passwordInput1, lamePassword);
+          await userEvent.type(passwordInput2, lamePassword);
+          await userEvent.click(btn);
+
+          expect(spy).toBeCalled();
+          expect(username.value).toEqual('');
+          expect(email.value).toEqual('');
+          expect(passwordInput1.value).toEqual('');
+          expect(passwordInput2.value).toEqual('');
+        });
       });
     });
   });
