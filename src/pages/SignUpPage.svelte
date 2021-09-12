@@ -37,6 +37,6 @@
        id="confirmPw"
        bind:value={confirmPw}/>
 
-<button {disabled} on:click={submit}>
+<button {disabled} on:click|preventDefault={submit}>
     sign up
 </button>

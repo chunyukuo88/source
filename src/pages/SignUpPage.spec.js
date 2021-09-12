@@ -7,6 +7,8 @@ import { sendFormDataToBackend } from './utils';
 jest.mock('./utils');
 
 describe("SignUpPage.svelte", ()=>{
+  const lamePassword = 'lamePassword';
+
   describe("Layout rendering", ()=>{
     it("displays a signup header.", () => {
       render(SignUpPage);
@@ -95,7 +97,6 @@ describe("SignUpPage.svelte", ()=>{
           const passwordInput1 = screen.getByLabelText('password');
           const passwordInput2 = screen.getByLabelText('re-type password');
           const btn = screen.getByRole('button', { name: 'sign up'});
-          const lamePassword = 'lamePassword';
 
           await userEvent.type(username, 'username');
           await userEvent.type(email, 'test@test.com');
@@ -106,7 +107,6 @@ describe("SignUpPage.svelte", ()=>{
           expect(sendFormDataToBackend).toBeCalledWith('username', 'test@test.com', lamePassword);
         });
         it('AND: The user is notified, and the form is cleared.', async ()=>{
-          sendFormDataToBackend.mockImplementation(jest.fn());
           const spy = jest.spyOn(window, 'alert').mockImplementation(jest.fn());
           render(SignUpPage);
           const username = screen.getByLabelText('username');
@@ -114,7 +114,6 @@ describe("SignUpPage.svelte", ()=>{
           const passwordInput1 = screen.getByLabelText('password');
           const passwordInput2 = screen.getByLabelText('re-type password');
           const btn = screen.getByRole('button', { name: 'sign up'});
-          const lamePassword = 'lamePassword';
 
           await userEvent.type(username, 'some username');
           await userEvent.type(email, 'some email address');

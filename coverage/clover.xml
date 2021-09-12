@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1631465770130" clover="3.2.0">
-  <project timestamp="1631465770130" name="All files">
-    <metrics statements="28" coveredstatements="24" conditionals="12" coveredconditionals="12" methods="1" coveredmethods="0" elements="41" coveredelements="36" complexity="0" loc="28" ncloc="28" packages="1" files="2" classes="2"/>
+<coverage generated="1631467025684" clover="3.2.0">
+  <project timestamp="1631467025684" name="All files">
+    <metrics statements="23" coveredstatements="23" conditionals="12" coveredconditionals="12" methods="0" coveredmethods="0" elements="35" coveredelements="35" complexity="0" loc="23" ncloc="23" packages="1" files="1" classes="1"/>
     <file name="SignUpPage.svelte" path="/Users/alexgochenour/IdeaProjects/source/src/pages/SignUpPage.svelte">
       <metrics statements="23" coveredstatements="23" conditionals="12" coveredconditionals="12" methods="0" coveredmethods="0"/>
       <line num="2" count="1" type="stmt"/>
@@ -27,14 +27,6 @@
       <line num="36" count="12" type="stmt"/>
       <line num="38" count="54" type="cond" truecount="2" falsecount="0"/>
       <line num="40" count="12" type="stmt"/>
-    </file>
-    <file name="utils.js" path="/Users/alexgochenour/IdeaProjects/source/src/pages/utils.js">
-      <metrics statements="5" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <line num="1" count="1" type="stmt"/>
-      <line num="2" count="0" type="stmt"/>
-      <line num="3" count="0" type="stmt"/>
-      <line num="4" count="0" type="stmt"/>
-      <line num="5" count="0" type="stmt"/>
     </file>
   </project>
 </coverage>
