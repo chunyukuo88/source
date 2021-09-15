@@ -1,8 +1,9 @@
-import axios from "axios";
 
-export const sendFormDataToBackend = (username, email, password) => {
+export async function sendFormDataToBackend (username, email, password) {
   const request = buildRequest(username, email, password);
-  axios.post(tempUrl, request);
+  const response = await fetch(tempUrl, request);
+  console.log(response);
+  return response;
 };
 
 const tempUrl = "/api/1.0/users";
