@@ -1,5 +1,5 @@
 <script>
-    import SignUpPage from './pages/SignUpPage.svelte';
+    import SignInPage from './pages/SignInPage.svelte';
 </script>
 
-<SignUpPage/>
+<SignInPage/>

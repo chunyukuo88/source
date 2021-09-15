@@ -1,4 +1,4 @@
-import SignUpPage from "./SignUpPage.svelte";
+import SignInPage from "./SignInPage.svelte";
 import { render, screen } from "@testing-library/svelte";
 import userEvent from "@testing-library/user-event";
 import "@testing-library/jest-dom";
@@ -6,66 +6,60 @@ import { sendFormDataToBackend } from './utils';
 
 jest.mock('./utils');
 
-describe("SignUpPage.svelte", ()=>{
+describe("SignInPage.svelte", ()=>{
   const lamePassword = 'lamePassword';
 
   describe("Layout rendering", ()=>{
     it("displays a signup header.", () => {
-      render(SignUpPage);
-      const header = screen.getByRole("heading", { name: "sign up" });
+      render(SignInPage);
+      const header = screen.getByRole("heading", { name: "sign in" });
 
       expect(header).toBeInTheDocument();
     });
     it("has username input.", () => {
-      render(SignUpPage);
+      render(SignInPage);
       const input = screen.getByLabelText("username");
 
       expect(input).toBeInTheDocument();
     });
     it("has email input.", () => {
-      render(SignUpPage);
+      render(SignInPage);
       const input = screen.getByLabelText("email");
 
       expect(input).toBeInTheDocument();
     });
     it("has a password input.", () => {
-      render(SignUpPage);
+      render(SignInPage);
       const input = screen.getByLabelText("password");
 
       expect(input).toBeInTheDocument();
     });
-    it("has a second password input.", () => {
-      render(SignUpPage);
-      const input = screen.getByLabelText("re-type password");
-
-      expect(input).toBeInTheDocument();
-    });
-    it('has a sign up button', ()=> {
-      render(SignUpPage);
-      const input = screen.getByRole('button', { name: 'sign up'});
+    it('has a sign in button', ()=> {
+      render(SignInPage);
+      const input = screen.getByRole('button', { name: 'sign in'});
 
       expect(input).toBeInTheDocument();
     });
   });
   describe("Form initialization", ()=>{
     it('The password input is of "password" type', ()=>{
-      render(SignUpPage);
+      render(SignInPage);
       const input = screen.getByLabelText('password');
       expect(input.type).toBe('password');
     });
     it('The button is initially disabled.', ()=>{
-      render(SignUpPage);
-      const btn = screen.getByRole('button', { name: 'sign up'});
+      render(SignInPage);
+      const btn = screen.getByRole('button', { name: 'sign in'});
       expect(btn).toBeDisabled();
     });
   });
   describe('Interacting with the form', ()=>{
     describe('WHEN: both password fields have the same input', ()=>{
-      it('THEN: The sign up button is enabled', async ()=>{
-        render(SignUpPage);
+      it('THEN: The sign in button is enabled', async ()=>{
+        render(SignInPage);
         const passwordInput1 = screen.getByLabelText('password');
         const passwordInput2 = screen.getByLabelText('re-type password');
-        const btn = screen.getByRole('button', { name: 'sign up'});
+        const btn = screen.getByRole('button', { name: 'sign in'});
         const lamePassword = 'lamePassword';
 
         await userEvent.type(passwordInput1, lamePassword);
@@ -75,11 +69,11 @@ describe("SignUpPage.svelte", ()=>{
       });
     });
     describe('WHEN: the password fields have different input', ()=>{
-      it('THEN: The sign up button is disabled', async ()=>{
-        render(SignUpPage);
+      it('THEN: The sign in button is disabled', async ()=>{
+        render(SignInPage);
         const passwordInput1 = screen.getByLabelText('password');
         const passwordInput2 = screen.getByLabelText('re-type password');
-        const btn = screen.getByRole('button', { name: 'sign up'});
+        const btn = screen.getByRole('button', { name: 'sign in'});
 
         await userEvent.type(passwordInput1, 'qwer');
         await userEvent.type(passwordInput2, 'asdf');
@@ -91,12 +85,12 @@ describe("SignUpPage.svelte", ()=>{
       describe('WHEN: The submission button is clicked,', ()=>{
         it('THEN: The four values are POSTed to the back end.', async ()=>{
           sendFormDataToBackend.mockImplementation(jest.fn());
-          render(SignUpPage);
+          render(SignInPage);
           const username = screen.getByLabelText('username');
           const email = screen.getByLabelText('email');
           const passwordInput1 = screen.getByLabelText('password');
           const passwordInput2 = screen.getByLabelText('re-type password');
-          const btn = screen.getByRole('button', { name: 'sign up'});
+          const btn = screen.getByRole('button', { name: 'sign in'});
 
           await userEvent.type(username, 'username');
           await userEvent.type(email, 'test@test.com');
@@ -108,12 +102,12 @@ describe("SignUpPage.svelte", ()=>{
         });
         it('AND: The user is notified, and the form is cleared.', async ()=>{
           const spy = jest.spyOn(window, 'alert').mockImplementation(jest.fn());
-          render(SignUpPage);
+          render(SignInPage);
           const username = screen.getByLabelText('username');
           const email = screen.getByLabelText('email');
           const passwordInput1 = screen.getByLabelText('password');
           const passwordInput2 = screen.getByLabelText('re-type password');
-          const btn = screen.getByRole('button', { name: 'sign up'});
+          const btn = screen.getByRole('button', { name: 'sign in'});
 
           await userEvent.type(username, 'some username');
           await userEvent.type(email, 'some email address');

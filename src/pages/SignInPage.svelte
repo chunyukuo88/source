@@ -22,7 +22,7 @@
     }
 </script>
 
-<h1>sign up</h1>
+<h1>sign in</h1>
 <label for="username">username</label>
 <input id="username"
        bind:value={username}/>
@@ -42,5 +42,5 @@
        bind:value={confirmPw}/>
 
 <button {disabled} on:click|preventDefault={submit}>
-    sign up
+    sign in
 </button>
