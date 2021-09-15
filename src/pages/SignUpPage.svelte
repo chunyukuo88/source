@@ -1,7 +1,7 @@
 <script>
     import { sendFormDataToBackend } from './utils';
 
-    let disabled = true;
+    let disabled;
     let username, email, password, confirmPw;
 
     $: disabled = (password && confirmPw)
@@ -11,6 +11,10 @@
     const submit = () => {
       sendFormDataToBackend(username, email, password);
       alert('Form data has been submitted');
+      _resetFormValues();
+    }
+
+    function _resetFormValues(){
       username = '';
       email = '';
       password = '';
