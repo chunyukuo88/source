@@ -22,25 +22,27 @@
     }
 </script>
 
-<h1>sign in</h1>
-<label for="username">username</label>
-<input id="username"
-       bind:value={username}/>
+<div data-testid="sign-in page">
+    <h1>sign in</h1>
+    <label for="username">username</label>
+    <input id="username"
+           bind:value={username}/>
 
-<label for="email">email</label>
-<input id="email"
-       bind:value={email}/>
+    <label for="email">email</label>
+    <input id="email"
+           bind:value={email}/>
 
-<label for="password">password</label>
-<input type="password"
-       id="password"
-       bind:value={password}/>
+    <label for="password">password</label>
+    <input type="password"
+           id="password"
+           bind:value={password}/>
 
-<label for="confirmPw">re-type password</label>
-<input type="password"
-       id="confirmPw"
-       bind:value={confirmPw}/>
+    <label for="confirmPw">re-type password</label>
+    <input type="password"
+           id="confirmPw"
+           bind:value={confirmPw}/>
 
-<button {disabled} on:click|preventDefault={submit}>
-    sign in
-</button>
+    <button {disabled} on:click|preventDefault={submit}>
+        sign in
+    </button>
+</div>
