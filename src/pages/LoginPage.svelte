@@ -22,8 +22,8 @@
     }
 </script>
 
-<div data-testid="sign-in page">
-    <h1>sign in</h1>
+<div data-testid="login page">
+    <h1>log in</h1>
     <label for="username">username</label>
     <input id="username"
            bind:value={username}/>

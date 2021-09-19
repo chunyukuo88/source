@@ -2,16 +2,18 @@ import { render, screen } from '@testing-library/svelte';
 import '@testing-library/jest-dom'
 import App from './App.svelte';
 
-describe('Routing', () => {
-  describe('WHEN: The user is at the sign-in page ("/sign-in") of the site,', ()=>{
-    beforeEach(()=>{
-      window.history.pushState({}, "", '/sign-in');
-    });
-    it('THEN: The sign-in page is displayed', () => {
-      render(App);
-      const signInPage = screen.queryByTestId('sign-in page');
+const navigateTo = (path) => window.history.pushState({}, "", `${path}`);
 
-      expect(signInPage).toBeInTheDocument();
+describe('Routing', () => {
+  describe('WHEN: The user is at the login page ("/login") of the site,', ()=>{
+    beforeEach(()=>{
+      navigateTo('/login');
+    });
+    it('THEN: The login page is displayed', () => {
+      render(App);
+      const loginPage = screen.queryByTestId('login page');
+
+      expect(loginPage).toBeInTheDocument();
     });
     it('AND: The main page is NOT displayed', () => {
       render(App);
@@ -22,7 +24,7 @@ describe('Routing', () => {
   });
   describe('WHEN: The user is at the index ("/") of the site,', ()=>{
     beforeEach(()=>{
-      window.history.pushState({}, "", '/');
+      navigateTo('/');
     });
     it('THEN: The homepage is displayed', () => {
       render(App);
@@ -30,16 +32,16 @@ describe('Routing', () => {
 
       expect(homepage).toBeInTheDocument();
     });
-    it('AND: The sign-in page is NOT displayed', () => {
+    it('AND: The login page is NOT displayed', () => {
       render(App);
-      const signInPage = screen.queryByTestId('sign-in page');
+      const loginPage = screen.queryByTestId('login page');
 
-      expect(signInPage).not.toBeInTheDocument();
+      expect(loginPage).not.toBeInTheDocument();
     });
   });
   describe('WHEN: The user is at the about page ("/about") of the site,', ()=>{
     beforeEach(()=>{
-      window.history.pushState({}, "", '/about');
+      navigateTo('/about');
     });
     it('THEN: The about is displayed', () => {
       render(App);
@@ -47,11 +49,23 @@ describe('Routing', () => {
 
       expect(aboutPage).toBeInTheDocument();
     });
-    it('AND: The sign-in page is NOT displayed', () => {
+    it('AND: The login page is NOT displayed', () => {
       render(App);
-      const signInPage = screen.queryByTestId('sign-in page');
+      const loginPage = screen.queryByTestId('login page');
 
-      expect(signInPage).not.toBeInTheDocument();
+      expect(loginPage).not.toBeInTheDocument();
     });
+  });
+  it.each`
+    path        | queryName
+    ${'/'}      | ${'Home'}
+    ${'/login'} | ${'Log In'}
+  `
+  ('There is a link to the $queryName in the NavBar', ({ path, queryName})=>{
+    navigateTo(path);
+    render(App);
+    const link = screen.queryByRole('link', { name: queryName });
+    expect(link).toBeInTheDocument();
+    expect(link.getAttribute('href')).toBe(path);
   });
 });

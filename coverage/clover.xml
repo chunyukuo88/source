@@ -1,25 +1,58 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1631900311954" clover="3.2.0">
-  <project timestamp="1631900311955" name="All files">
-    <metrics statements="8" coveredstatements="8" conditionals="4" coveredconditionals="4" methods="0" coveredmethods="0" elements="12" coveredelements="12" complexity="0" loc="8" ncloc="8" packages="2" files="2" classes="2"/>
+<coverage generated="1632019831594" clover="3.2.0">
+  <project timestamp="1632019831594" name="All files">
+    <metrics statements="38" coveredstatements="36" conditionals="16" coveredconditionals="16" methods="2" coveredmethods="0" elements="56" coveredelements="52" complexity="0" loc="38" ncloc="38" packages="2" files="3" classes="3"/>
     <package name="src">
-      <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="4" methods="0" coveredmethods="0"/>
+      <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="4" methods="0" coveredmethods="0"/>
       <file name="App.svelte" path="C:\Users\Owner\WebstormProjects\source\src\App.svelte">
-        <metrics statements="6" coveredstatements="6" conditionals="4" coveredconditionals="4" methods="0" coveredmethods="0"/>
+        <metrics statements="10" coveredstatements="10" conditionals="4" coveredconditionals="4" methods="0" coveredmethods="0"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
-        <line num="6" count="6" type="stmt"/>
-        <line num="9" count="6" type="cond" truecount="2" falsecount="0"/>
-        <line num="11" count="4" type="cond" truecount="2" falsecount="0"/>
+        <line num="6" count="8" type="stmt"/>
+        <line num="9" count="8" type="stmt"/>
+        <line num="10" count="8" type="stmt"/>
+        <line num="11" count="8" type="stmt"/>
+        <line num="12" count="8" type="stmt"/>
+        <line num="14" count="8" type="cond" truecount="2" falsecount="0"/>
+        <line num="16" count="5" type="cond" truecount="2" falsecount="0"/>
       </file>
     </package>
     <package name="src.pages">
-      <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="About.svelte" path="C:\Users\Owner\WebstormProjects\source\src\pages\About.svelte">
-        <metrics statements="2" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="1" count="2" type="stmt"/>
+      <metrics statements="28" coveredstatements="26" conditionals="12" coveredconditionals="12" methods="2" coveredmethods="0"/>
+      <file name="LoginPage.svelte" path="C:\Users\Owner\WebstormProjects\source\src\pages\LoginPage.svelte">
+        <metrics statements="24" coveredstatements="24" conditionals="12" coveredconditionals="12" methods="0" coveredmethods="0"/>
         <line num="2" count="2" type="stmt"/>
+        <line num="7" count="24" type="cond" truecount="2" falsecount="0"/>
+        <line num="12" count="2" type="stmt"/>
+        <line num="13" count="2" type="stmt"/>
+        <line num="14" count="2" type="stmt"/>
+        <line num="18" count="2" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="20" count="2" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="25" count="14" type="stmt"/>
+        <line num="26" count="14" type="stmt"/>
+        <line num="27" count="14" type="stmt"/>
+        <line num="28" count="14" type="stmt"/>
+        <line num="29" count="37" type="cond" truecount="2" falsecount="0"/>
+        <line num="31" count="14" type="stmt"/>
+        <line num="32" count="14" type="stmt"/>
+        <line num="33" count="47" type="cond" truecount="2" falsecount="0"/>
+        <line num="35" count="14" type="stmt"/>
+        <line num="36" count="14" type="stmt"/>
+        <line num="38" count="56" type="cond" truecount="2" falsecount="0"/>
+        <line num="40" count="14" type="stmt"/>
+        <line num="41" count="14" type="stmt"/>
+        <line num="43" count="56" type="cond" truecount="2" falsecount="0"/>
+        <line num="45" count="14" type="stmt"/>
+      </file>
+      <file name="utils.js" path="C:\Users\Owner\WebstormProjects\source\src\pages\utils.js">
+        <metrics statements="4" coveredstatements="2" conditionals="0" coveredconditionals="0" methods="2" coveredmethods="0"/>
+        <line num="2" count="0" type="stmt"/>
+        <line num="3" count="0" type="stmt"/>
+        <line num="6" count="2" type="stmt"/>
+        <line num="8" count="2" type="stmt"/>
       </file>
     </package>
   </project>
