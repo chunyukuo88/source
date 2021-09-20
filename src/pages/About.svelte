@@ -1,3 +1,3 @@
-<div data-testid="about-page">
-    <h1>About</h1>
+<div data-testid="about page">
+    <h1>about</h1>
 </div>

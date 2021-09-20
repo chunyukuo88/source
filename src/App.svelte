@@ -16,6 +16,7 @@
     <a href="/" on:click={navBarHandler}>home</a>
     <a href="/login" on:click={navBarHandler}>log in</a>
     <a href="/blog" on:click={navBarHandler}>blog</a>
+    <a href="/about" on:click={navBarHandler}>about</a>
   </nav>
   {#if path === '/'}
     <Homepage/>
@@ -23,7 +24,9 @@
     <LoginPage />
   {:else if path === '/blog'}
     <BlogPage />
-  {:else}
+  {:else if path === '/about'}
     <About />
+  {:else }
+    <Homepage/>
   {/if}
 </div>

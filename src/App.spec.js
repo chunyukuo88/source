@@ -61,25 +61,35 @@ describe('Routing', () => {
     ${'/'}      | ${'home'}
     ${'/login'} | ${'log in'}
     ${'/blog'}  | ${'blog'}
+    ${'/about'}  | ${'about'}
   `
   ('There is a link to the $queryName in the NavBar', ({ path, queryName})=>{
     navigateTo(path);
+
     render(App);
     const link = screen.queryByRole('link', { name: queryName });
+
     expect(link).toBeInTheDocument();
     expect(link.getAttribute('href')).toBe(path);
   });
-  describe('WHEN: The user clicks the login link', ()=>{
-    it('THEN: The user is taken to the login page.', async () => {
+  describe('The user clicks on nav bar links, they are taken to the pages they expect.', ()=>{
+    it.each`
+      linkLabel   |   displayedPage     |   URL
+      ${'log in'} |   ${'login page'}   |   ${'/login'}
+      ${'home'}   |   ${'homepage'}     |   ${'/'}
+      ${'blog'}   |   ${'blog page'}    |   ${'/blog'}
+      ${'about'}  |   ${'about page'}   |   ${'/about'}
+    `('WHEN: The user is taken to $displayedPage after clicking $linkLabel.',
+      async ({linkLabel, displayedPage, URL}) => {
       navigateTo('/');
       render(App);
-      const loginLink = screen.queryByRole('link', { name: 'log in'});
+      const navBarLink = screen.queryByRole('link', { name: linkLabel});
 
-      await fireEvent.click(loginLink);
+      await fireEvent.click(navBarLink);
+      const expectedPage = screen.queryByTestId(displayedPage);
 
-      const loginPage = screen.queryByTestId('login page');
-      expect(loginPage).toBeInTheDocument();
-      expect(window.location.pathname).toBe('/login');
+      expect(expectedPage).toBeInTheDocument();
+      expect(window.location.pathname).toBe(URL);
     });
   });
 });
