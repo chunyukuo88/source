@@ -28,12 +28,16 @@
     "svelte-jester": "^1.8.2"
   },
   "dependencies": {
-    "sirv-cli": "^1.0.0"
+    "sirv-cli": "^1.0.0",
+    "svelte-routing": "^1.6.0"
   },
   "jest": {
     "transform": {
       "^.+\\.svelte$": "svelte-jester",
       "^.+\\.js$": "babel-jest"
-    }
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!(svelte-routing)/)"
+    ]
   }
 }

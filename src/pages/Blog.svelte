@@ -1,1 +1,1 @@
-<div data-testid="blog page">>blog</div>
+<h1 data-testid="blog page">blog</h1>

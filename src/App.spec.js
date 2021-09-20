@@ -45,7 +45,7 @@ describe('Routing', () => {
     });
     it('THEN: The about is displayed', () => {
       render(App);
-      const aboutPage = screen.queryByTestId('about-page');
+      const aboutPage = screen.queryByTestId('about page');
 
       expect(aboutPage).toBeInTheDocument();
     });
