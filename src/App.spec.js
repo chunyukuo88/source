@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/svelte';
+import { render, screen, fireEvent } from '@testing-library/svelte';
 import '@testing-library/jest-dom'
 import App from './App.svelte';
 
@@ -58,8 +58,9 @@ describe('Routing', () => {
   });
   it.each`
     path        | queryName
-    ${'/'}      | ${'Home'}
-    ${'/login'} | ${'Log In'}
+    ${'/'}      | ${'home'}
+    ${'/login'} | ${'log in'}
+    ${'/blog'}  | ${'blog'}
   `
   ('There is a link to the $queryName in the NavBar', ({ path, queryName})=>{
     navigateTo(path);
@@ -67,5 +68,18 @@ describe('Routing', () => {
     const link = screen.queryByRole('link', { name: queryName });
     expect(link).toBeInTheDocument();
     expect(link.getAttribute('href')).toBe(path);
+  });
+  describe('WHEN: The user clicks the login link', ()=>{
+    it('THEN: The user is taken to the login page.', async () => {
+      navigateTo('/');
+      render(App);
+      const loginLink = screen.queryByRole('link', { name: 'log in'});
+
+      await fireEvent.click(loginLink);
+
+      const loginPage = screen.queryByTestId('login page');
+      expect(loginPage).toBeInTheDocument();
+      expect(window.location.pathname).toBe('/login');
+    });
   });
 });
