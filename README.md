@@ -1,1 +1,1 @@
-This app is made with Svelte, Material Design, and Google Cloud Provider.
+This app is made with Svelte, Material Design, and the Firebase SDK.

@@ -15,11 +15,10 @@
     }
 
     function _resetFormValues(){
-      username = '';
-      email = '';
-      password = '';
-      confirmPw = '';
+      [username, email, password, confirmPw] = ['', '', '', ''];
     }
+
+
 </script>
 
 <div data-testid="login page">

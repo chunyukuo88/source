@@ -1,10 +1,10 @@
-import LoginPage from "./LoginPage.svelte";
-import { render, screen } from "@testing-library/svelte";
-import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom";
-import { sendFormDataToBackend } from './utils';
+import LoginPage from '../LoginPage.svelte';
+import { render, screen } from '@testing-library/svelte';
+import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
+import { sendFormDataToBackend } from '../utils';
 
-jest.mock('./utils');
+jest.mock('../utils');
 
 describe("LoginPage.svelte", ()=>{
   const lamePassword = 'lamePassword';

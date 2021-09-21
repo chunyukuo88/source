@@ -1,4 +1,4 @@
-import { sendFormDataToBackend, _buildRequest } from "./utils";
+import { sendFormDataToBackend, _buildRequest } from "../utils";
 
 describe('GIVEN: Valid params', ()=>{
   describe('WHEN: This function is invoked', ()=>{
