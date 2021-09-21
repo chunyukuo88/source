@@ -6,7 +6,6 @@
   import BlogPage from './pages/Blog.svelte';
   import { Router, Route, Link } from 'svelte-routing';
   import { initializeApp } from 'firebase/app';
-  import 'firebase/auth';
   import { onMount } from 'svelte';
 
   let path = window.location.pathname;

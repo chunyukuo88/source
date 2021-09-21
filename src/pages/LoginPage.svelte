@@ -1,5 +1,7 @@
 <script>
     import { sendFormDataToBackend } from './utils';
+    import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+    import { authStore } from '../stores/authStore';
 
     let disabled;
     let username, email, password, confirmPw;
@@ -8,16 +10,21 @@
       ? (password !== confirmPw )
       : true;
 
-    const submit = () => {
-      sendFormDataToBackend(username, email, password);
-      alert('Form data has been submitted');
-      _resetFormValues();
+    const auth = getAuth();
+    function login (auth, email, password) {
+        signInWithEmailAndPassword(auth, email, password)
+          .then((userCredential) => {
+            authStore.set({
+              isLoggedIn: true,
+              user: userCredential.user,
+            });
+            console.log(authStore);
+          })
+          .catch((error) => {
+            const { code, message } = error;
+            console.log(`${code}\n${message}`);
+          });
     }
-
-    function _resetFormValues(){
-      [username, email, password, confirmPw] = ['', '', '', ''];
-    }
-
 
 </script>
 
@@ -41,7 +48,8 @@
            id="confirmPw"
            bind:value={confirmPw}/>
 
-    <button {disabled} on:click|preventDefault={submit}>
+    <button {disabled}
+            on:click|preventDefault={()=>login(auth, email, password)}>
         sign in
     </button>
 </div>
