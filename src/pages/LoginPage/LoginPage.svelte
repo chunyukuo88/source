@@ -1,6 +1,5 @@
 <script>
-    import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-    import { authStore, setLoginSuccess } from '../../stores/authStore';
+    import { submitLoginInfo } from './utils';
     let disabled;
     let username, email, password, confirmPw;
 
@@ -8,21 +7,22 @@
       ? (password !== confirmPw )
       : true;
 
-    async function clickHandler (auth, email, password) {
+    async function clickHandler(email, password) {
         try {
-            const auth = getAuth();
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
-            authStore.set({
-              isLoggedIn: true,
-              user: userCredential.user,
-            });
-            console.log(authStore);
+          await submitLoginInfo(email, password);
+          _resetFormValues();
         } catch (error) {
           const { code, message } = error;
           console.log(`${code}\n${message}`);
         }
     }
 
+    function _resetFormValues(){
+      username = '';
+      email = '';
+      password = '';
+      confirmPw = '';
+    }
 </script>
 
 <div data-testid="login page">
@@ -46,7 +46,7 @@
            bind:value={confirmPw}/>
 
     <button {disabled}
-            on:click|preventDefault={()=>clickHandler(auth, email, password)}>
+            on:click|preventDefault={()=>clickHandler(email, password)}>
         sign in
     </button>
 </div>
