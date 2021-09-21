@@ -1,8 +1,8 @@
 <script>
-  import LoginPage from './pages/LoginPage.svelte';
+  import LoginPage from './pages/LoginPage/LoginPage.svelte';
   import Homepage from './pages/Homepage.svelte';
   import About from './pages/About.svelte';
-  import AdminPage from './pages/AdminPage.svelte';
+  import AdminPage from './pages/AdminPage/AdminPage.svelte';
   import BlogPage from './pages/Blog.svelte';
   import { Router, Route, Link } from 'svelte-routing';
   import { initializeApp } from 'firebase/app';

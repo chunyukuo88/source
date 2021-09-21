@@ -1,4 +1,4 @@
-import LoginPage from '../LoginPage.svelte';
+import LoginPage from './LoginPage.svelte';
 import { render, screen } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';

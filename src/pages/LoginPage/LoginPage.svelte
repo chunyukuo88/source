@@ -1,6 +1,6 @@
 <script>
     import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-    import { authStore, setLoginSuccess } from '../stores/authStore';
+    import { authStore, setLoginSuccess } from '../../stores/authStore';
     let disabled;
     let username, email, password, confirmPw;
 
@@ -8,9 +8,9 @@
       ? (password !== confirmPw )
       : true;
 
-    const auth = getAuth();
     async function clickHandler (auth, email, password) {
         try {
+            const auth = getAuth();
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             authStore.set({
               isLoggedIn: true,
