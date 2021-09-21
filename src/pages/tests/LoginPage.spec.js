@@ -2,9 +2,9 @@ import LoginPage from '../LoginPage.svelte';
 import { render, screen } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { sendFormDataToBackend } from '../utils';
+import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-jest.mock('../utils');
+jest.mock('firebase/auth');
 
 describe("LoginPage.svelte", ()=>{
   const lamePassword = 'lamePassword';
@@ -84,21 +84,25 @@ describe("LoginPage.svelte", ()=>{
     describe('GIVEN: username, email, and matching passwords,', ()=>{
       describe('WHEN: The submission button is clicked,', ()=>{
         it('THEN: The four values are POSTed to the back end.', async ()=>{
-          sendFormDataToBackend.mockImplementation(jest.fn());
+          getAuth.mockImplementation(() => {});
+          signInWithEmailAndPassword.mockImplementation(() => ({
+            user: {}
+          }));
+          const auth = getAuth();
+
           render(LoginPage);
           const username = screen.getByLabelText('username');
           const email = screen.getByLabelText('email');
           const passwordInput1 = screen.getByLabelText('password');
           const passwordInput2 = screen.getByLabelText('re-type password');
           const btn = screen.getByRole('button', { name: 'sign in'});
-
           await userEvent.type(username, 'username');
           await userEvent.type(email, 'test@test.com');
           await userEvent.type(passwordInput1, lamePassword);
           await userEvent.type(passwordInput2, lamePassword);
           await userEvent.click(btn);
 
-          expect(sendFormDataToBackend).toBeCalledWith('username', 'test@test.com', lamePassword);
+          expect(signInWithEmailAndPassword).toBeCalledWith(auth, 'test@test.com', lamePassword);
         });
         it('AND: The user is notified, and the form is cleared.', async ()=>{
           const spy = jest.spyOn(window, 'alert').mockImplementation(jest.fn());

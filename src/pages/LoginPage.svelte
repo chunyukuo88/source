@@ -1,8 +1,6 @@
 <script>
-    import { sendFormDataToBackend } from './utils';
     import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-    import { authStore } from '../stores/authStore';
-
+    import { authStore, setLoginSuccess } from '../stores/authStore';
     let disabled;
     let username, email, password, confirmPw;
 
@@ -11,19 +9,18 @@
       : true;
 
     const auth = getAuth();
-    function login (auth, email, password) {
-        signInWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
+    async function clickHandler (auth, email, password) {
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
             authStore.set({
               isLoggedIn: true,
               user: userCredential.user,
             });
             console.log(authStore);
-          })
-          .catch((error) => {
-            const { code, message } = error;
-            console.log(`${code}\n${message}`);
-          });
+        } catch (error) {
+          const { code, message } = error;
+          console.log(`${code}\n${message}`);
+        }
     }
 
 </script>
@@ -49,7 +46,7 @@
            bind:value={confirmPw}/>
 
     <button {disabled}
-            on:click|preventDefault={()=>login(auth, email, password)}>
+            on:click|preventDefault={()=>clickHandler(auth, email, password)}>
         sign in
     </button>
 </div>
