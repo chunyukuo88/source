@@ -1,1 +1,1 @@
-<h1>管理页面</h1>
+<h1 data-testid="admin page">管理页面</h1>

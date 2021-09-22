@@ -3,13 +3,16 @@ import { render, screen } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { submitLoginInfo } from './utils';
+import { navigate } from 'svelte-routing';
 
 jest.mock('./utils');
+jest.mock('svelte-routing');
+
+const [someUserName, somePassword, someEmail] = ['someUserName', 'somePassword', 'test@test.com'];
+
+const navigateTo = (path) => window.history.pushState({}, "", `${path}`);
 
 describe("LoginPage.svelte", ()=>{
-  const somePassword = 'somePassword';
-  const someEmail = 'test@test.com';
-
   describe("Layout rendering", ()=>{
     it("displays a login header.", () => {
       render(LoginPage);
@@ -82,7 +85,7 @@ describe("LoginPage.svelte", ()=>{
         expect(btn).toBeDisabled();
       });
     });
-    describe('GIVEN: username, email, and matching passwords,', ()=>{
+    describe('GIVEN: HAPPY PATH: username, email, and matching passwords,', ()=>{
       describe('WHEN: The submission button is clicked,', ()=>{
         it('THEN: The four values are POSTed to the back end.', async ()=>{
           submitLoginInfo.mockImplementation(jest.fn());
@@ -92,7 +95,7 @@ describe("LoginPage.svelte", ()=>{
           const passwordInput1 = screen.getByLabelText('password');
           const passwordInput2 = screen.getByLabelText('re-type password');
           const btn = screen.getByRole('button', { name: 'sign in'});
-          await userEvent.type(username, 'username');
+          await userEvent.type(username, someUserName);
           await userEvent.type(email, someEmail);
           await userEvent.type(passwordInput1, somePassword);
           await userEvent.type(passwordInput2, somePassword);
@@ -108,8 +111,8 @@ describe("LoginPage.svelte", ()=>{
           let passwordInput2 = screen.getByLabelText('re-type password');
           const btn = screen.getByRole('button', { name: 'sign in'});
 
-          await userEvent.type(username, 'some username');
-          await userEvent.type(email, 'some email address');
+          await userEvent.type(username, someUserName);
+          await userEvent.type(email, someEmail);
           await userEvent.type(passwordInput1, somePassword);
           await userEvent.type(passwordInput2, somePassword);
           userEvent.click(btn);
@@ -123,7 +126,27 @@ describe("LoginPage.svelte", ()=>{
             username.value, email.value, passwordInput1.value, passwordInput2.value
           ]).toEqual(['', '', '', '']);
         });
+        it('AND: The user is routed to the Admin page.', async ()=>{
+          render(LoginPage);
+          let username = screen.getByLabelText('username');
+          let email = screen.getByLabelText('email');
+          let passwordInput1 = screen.getByLabelText('password');
+          let passwordInput2 = screen.getByLabelText('re-type password');
+          const btn = screen.getByRole('button', { name: 'sign in'});
+
+          await userEvent.type(username, someUserName);
+          await userEvent.type(email, someEmail);
+          await userEvent.type(passwordInput1, somePassword);
+          await userEvent.type(passwordInput2, somePassword);
+          userEvent.click(btn);
+          const adminPage = screen.getByTestId('admin page');
+
+          expect(adminPage).toBeInTheDocument();
+        });
       });
+    });
+    describe('GIVEN: UNHAPPY PATH: username, email, and matching passwords,', ()=>{
+      // Unhappy paths
     });
   });
 });
