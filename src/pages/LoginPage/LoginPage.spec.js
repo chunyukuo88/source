@@ -2,11 +2,9 @@ import LoginPage from './LoginPage.svelte';
 import { render, screen } from '@testing-library/svelte';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
-import { submitLoginInfo } from './utils';
-import { navigate } from 'svelte-routing';
+import { submitLoginInfo, navigateToAdminPage } from './utils';
 
 jest.mock('./utils');
-jest.mock('svelte-routing');
 
 const [someUserName, somePassword, someEmail] = ['someUserName', 'somePassword', 'test@test.com'];
 
@@ -126,22 +124,23 @@ describe("LoginPage.svelte", ()=>{
             username.value, email.value, passwordInput1.value, passwordInput2.value
           ]).toEqual(['', '', '', '']);
         });
-        it('AND: The user is routed to the Admin page.', async ()=>{
+        it('AND: The helper function that routes the user to the Admin page is invoked.', async ()=>{
+          navigateToAdminPage.mockImplementation(jest.fn());
+
           render(LoginPage);
           let username = screen.getByLabelText('username');
           let email = screen.getByLabelText('email');
           let passwordInput1 = screen.getByLabelText('password');
           let passwordInput2 = screen.getByLabelText('re-type password');
-          const btn = screen.getByRole('button', { name: 'sign in'});
+          const btn = screen.getByRole('button', { name: 'log in'});
 
           await userEvent.type(username, someUserName);
           await userEvent.type(email, someEmail);
           await userEvent.type(passwordInput1, somePassword);
           await userEvent.type(passwordInput2, somePassword);
-          userEvent.click(btn);
-          const adminPage = screen.getByTestId('admin page');
+          await userEvent.click(btn);
 
-          expect(adminPage).toBeInTheDocument();
+          expect(navigateToAdminPage).toHaveBeenCalledTimes(1);
         });
       });
     });

@@ -1,6 +1,5 @@
 <script>
-    import { submitLoginInfo } from './utils';
-    import { navigate } from 'svelte-routing';
+    import { submitLoginInfo, navigateToAdminPage } from './utils';
 
     let disabled;
     let username, email, password, confirmPw;
@@ -15,7 +14,7 @@
         try {
           await submitLoginInfo(email, password);
           _resetFormValues();
-          navigate('/admin');
+          navigateToAdminPage();
         } catch (error) {
           const { code, message } = error;
           console.log(`${code}\n${message}`);
@@ -40,6 +39,6 @@
 
     <button {disabled}
             on:click|preventDefault={()=>clickHandler(email, password)}>
-        sign in
+        log in
     </button>
 </div>

@@ -7,6 +7,7 @@
   import { Router, Route, Link } from 'svelte-routing';
   import { initializeApp } from 'firebase/app';
   import { onMount } from 'svelte';
+  import { routes } from './pages/routes';
 
   let path = window.location.pathname;
 
@@ -28,15 +29,15 @@
 <Router url={window.location.pathname}>
   <div class="container">
     <nav>
-      <Link to="/">home</Link>
-      <Link to="/login">log in</Link>
-      <Link to="/blog">blog</Link>
-      <Link to="/about">about</Link>
+      <Link to={routes.HOME}>home</Link>
+      <Link to={routes.LOGIN}>log in</Link>
+      <Link to={routes.BLOG}>blog</Link>
+      <Link to={routes.ABOUT}>about</Link>
     </nav>
-    <Route path="/"><Homepage/></Route>
-    <Route path="/login"><LoginPage/></Route>
-    <Route path="/blog"><BlogPage/></Route>
-    <Route path="/about"><About/></Route>
-    <Route path="/admin"><AdminPage/></Route>
+    <Route path={routes.HOME}><Homepage/></Route>
+    <Route path={routes.LOGIN}><LoginPage/></Route>
+    <Route path={routes.BLOG}><BlogPage/></Route>
+    <Route path={routes.ABOUT}><About/></Route>
+    <Route path={routes.ADMIN}><AdminPage/></Route>
   </div>
 </Router>

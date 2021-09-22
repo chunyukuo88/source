@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/svelte';
 import '@testing-library/jest-dom'
+import { routes } from './pages/routes';
 import App from './App.svelte';
 
 const navigateTo = (path) => window.history.pushState({}, "", `${path}`);
@@ -7,7 +8,7 @@ const navigateTo = (path) => window.history.pushState({}, "", `${path}`);
 describe('Routing', () => {
   describe('WHEN: The user is at the login page ("/login") of the site,', ()=>{
     beforeEach(()=>{
-      navigateTo('/login');
+      navigateTo(routes.LOGIN);
     });
     it('THEN: The login page is displayed', () => {
       render(App);
@@ -24,7 +25,7 @@ describe('Routing', () => {
   });
   describe('WHEN: The user is at the index ("/") of the site,', ()=>{
     beforeEach(()=>{
-      navigateTo('/');
+      navigateTo(routes.HOME);
     });
     it('THEN: The homepage is displayed', () => {
       render(App);
@@ -41,7 +42,7 @@ describe('Routing', () => {
   });
   describe('WHEN: The user is at the about page ("/about") of the site,', ()=>{
     beforeEach(()=>{
-      navigateTo('/about');
+      navigateTo(routes.ABOUT);
     });
     it('THEN: The about is displayed', () => {
       render(App);
@@ -57,11 +58,11 @@ describe('Routing', () => {
     });
   });
   it.each`
-    path        | queryName
-    ${'/'}      | ${'home'}
-    ${'/login'} | ${'log in'}
-    ${'/blog'}  | ${'blog'}
-    ${'/about'}  | ${'about'}
+    path            | queryName
+    ${routes.HOME}  | ${'home'}
+    ${routes.LOGIN} | ${'log in'}
+    ${routes.BLOG}  | ${'blog'}
+    ${routes.ABOUT} | ${'about'}
   `
   ('There is a link to the $queryName in the NavBar', ({ path, queryName})=>{
     navigateTo(path);
@@ -75,13 +76,13 @@ describe('Routing', () => {
   describe('The user clicks on nav bar links, they are taken to the pages they expect.', ()=>{
     it.each`
       linkLabel   |   displayedPage     |   URL
-      ${'log in'} |   ${'login page'}   |   ${'/login'}
-      ${'home'}   |   ${'homepage'}     |   ${'/'}
-      ${'blog'}   |   ${'blog page'}    |   ${'/blog'}
-      ${'about'}  |   ${'about page'}   |   ${'/about'}
+      ${'log in'} |   ${'login page'}   |   ${routes.LOGIN}
+      ${'home'}   |   ${'homepage'}     |   ${routes.HOME}
+      ${'blog'}   |   ${'blog page'}    |   ${routes.BLOG}
+      ${'about'}  |   ${'about page'}   |   ${routes.ABOUT}
     `('WHEN: The user is taken to $displayedPage after clicking $linkLabel.',
       async ({linkLabel, displayedPage, URL}) => {
-      navigateTo('/');
+      navigateTo(routes.HOME);
       render(App);
       const navBarLink = screen.queryByRole('link', { name: linkLabel});
 
