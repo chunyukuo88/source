@@ -1,11 +1,19 @@
 <script>
     import { submitLoginInfo } from './utils';
+
     let disabled;
     let username, email, password, confirmPw;
 
     $: disabled = (password && confirmPw)
       ? (password !== confirmPw )
       : true;
+
+    function _resetFormValues(){
+      username = '';
+      email = '';
+      password = '';
+      confirmPw = '';
+    }
 
     async function clickHandler(email, password) {
         try {
@@ -15,13 +23,6 @@
           const { code, message } = error;
           console.log(`${code}\n${message}`);
         }
-    }
-
-    function _resetFormValues(){
-      username = '';
-      email = '';
-      password = '';
-      confirmPw = '';
     }
 </script>
 

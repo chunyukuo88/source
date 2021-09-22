@@ -112,17 +112,16 @@ describe("LoginPage.svelte", ()=>{
           await userEvent.type(email, 'some email address');
           await userEvent.type(passwordInput1, somePassword);
           await userEvent.type(passwordInput2, somePassword);
-          await userEvent.click(btn);
+          userEvent.click(btn);
 
-          username = screen.getByLabelText('username');
-          // email = screen.getByLabelText('email');
-          // passwordInput1 = screen.getByLabelText('password');
-          // passwordInput2 = screen.getByLabelText('re-type password');
+          username = await screen.getByLabelText('username');
+          email = await screen.getByLabelText('email');
+          passwordInput1 = await screen.getByLabelText('password');
+          passwordInput2 = await screen.getByLabelText('re-type password');
 
-          await expect(username.value).toEqual('');
-          // expect(email.value).toEqual('');
-          // expect(passwordInput1.value).toEqual('');
-          // expect(passwordInput2.value).toEqual('');
+          expect([
+            username.value, email.value, passwordInput1.value, passwordInput2.value
+          ]).toEqual(['', '', '', '']);
         });
       });
     });
