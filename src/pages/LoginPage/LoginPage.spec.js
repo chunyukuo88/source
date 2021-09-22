@@ -1,14 +1,18 @@
-import LoginPage from "./LoginPage.svelte";
-import { render, screen } from "@testing-library/svelte";
-import userEvent from "@testing-library/user-event";
-import "@testing-library/jest-dom";
-import { sendFormDataToBackend } from './utils';
+import LoginPage from './LoginPage.svelte';
+import { render, screen } from '@testing-library/svelte';
+import userEvent from '@testing-library/user-event';
+import '@testing-library/jest-dom';
+import { submitLoginInfo } from './utils';
+import { navigate } from 'svelte-routing';
 
 jest.mock('./utils');
+jest.mock('svelte-routing');
+
+const [someUserName, somePassword, someEmail] = ['someUserName', 'somePassword', 'test@test.com'];
+
+const navigateTo = (path) => window.history.pushState({}, "", `${path}`);
 
 describe("LoginPage.svelte", ()=>{
-  const lamePassword = 'lamePassword';
-
   describe("Layout rendering", ()=>{
     it("displays a login header.", () => {
       render(LoginPage);
@@ -60,10 +64,10 @@ describe("LoginPage.svelte", ()=>{
         const passwordInput1 = screen.getByLabelText('password');
         const passwordInput2 = screen.getByLabelText('re-type password');
         const btn = screen.getByRole('button', { name: 'sign in'});
-        const lamePassword = 'lamePassword';
+        const somePassword = 'somePassword';
 
-        await userEvent.type(passwordInput1, lamePassword);
-        await userEvent.type(passwordInput2, lamePassword);
+        await userEvent.type(passwordInput1, somePassword);
+        await userEvent.type(passwordInput2, somePassword);
 
         expect(btn).toBeEnabled();
       });
@@ -81,47 +85,68 @@ describe("LoginPage.svelte", ()=>{
         expect(btn).toBeDisabled();
       });
     });
-    describe('GIVEN: username, email, and matching passwords,', ()=>{
+    describe('GIVEN: HAPPY PATH: username, email, and matching passwords,', ()=>{
       describe('WHEN: The submission button is clicked,', ()=>{
         it('THEN: The four values are POSTed to the back end.', async ()=>{
-          sendFormDataToBackend.mockImplementation(jest.fn());
+          submitLoginInfo.mockImplementation(jest.fn());
           render(LoginPage);
           const username = screen.getByLabelText('username');
           const email = screen.getByLabelText('email');
           const passwordInput1 = screen.getByLabelText('password');
           const passwordInput2 = screen.getByLabelText('re-type password');
           const btn = screen.getByRole('button', { name: 'sign in'});
-
-          await userEvent.type(username, 'username');
-          await userEvent.type(email, 'test@test.com');
-          await userEvent.type(passwordInput1, lamePassword);
-          await userEvent.type(passwordInput2, lamePassword);
+          await userEvent.type(username, someUserName);
+          await userEvent.type(email, someEmail);
+          await userEvent.type(passwordInput1, somePassword);
+          await userEvent.type(passwordInput2, somePassword);
           await userEvent.click(btn);
 
-          expect(sendFormDataToBackend).toBeCalledWith('username', 'test@test.com', lamePassword);
+          expect(submitLoginInfo).toBeCalledWith(someEmail, somePassword);
         });
         it('AND: The user is notified, and the form is cleared.', async ()=>{
-          const spy = jest.spyOn(window, 'alert').mockImplementation(jest.fn());
           render(LoginPage);
-          const username = screen.getByLabelText('username');
-          const email = screen.getByLabelText('email');
-          const passwordInput1 = screen.getByLabelText('password');
-          const passwordInput2 = screen.getByLabelText('re-type password');
+          let username = screen.getByLabelText('username');
+          let email = screen.getByLabelText('email');
+          let passwordInput1 = screen.getByLabelText('password');
+          let passwordInput2 = screen.getByLabelText('re-type password');
           const btn = screen.getByRole('button', { name: 'sign in'});
 
-          await userEvent.type(username, 'some username');
-          await userEvent.type(email, 'some email address');
-          await userEvent.type(passwordInput1, lamePassword);
-          await userEvent.type(passwordInput2, lamePassword);
-          await userEvent.click(btn);
+          await userEvent.type(username, someUserName);
+          await userEvent.type(email, someEmail);
+          await userEvent.type(passwordInput1, somePassword);
+          await userEvent.type(passwordInput2, somePassword);
+          userEvent.click(btn);
 
-          expect(spy).toBeCalled();
-          expect(username.value).toEqual('');
-          expect(email.value).toEqual('');
-          expect(passwordInput1.value).toEqual('');
-          expect(passwordInput2.value).toEqual('');
+          username = await screen.getByLabelText('username');
+          email = await screen.getByLabelText('email');
+          passwordInput1 = await screen.getByLabelText('password');
+          passwordInput2 = await screen.getByLabelText('re-type password');
+
+          expect([
+            username.value, email.value, passwordInput1.value, passwordInput2.value
+          ]).toEqual(['', '', '', '']);
+        });
+        it('AND: The user is routed to the Admin page.', async ()=>{
+          render(LoginPage);
+          let username = screen.getByLabelText('username');
+          let email = screen.getByLabelText('email');
+          let passwordInput1 = screen.getByLabelText('password');
+          let passwordInput2 = screen.getByLabelText('re-type password');
+          const btn = screen.getByRole('button', { name: 'sign in'});
+
+          await userEvent.type(username, someUserName);
+          await userEvent.type(email, someEmail);
+          await userEvent.type(passwordInput1, somePassword);
+          await userEvent.type(passwordInput2, somePassword);
+          userEvent.click(btn);
+          const adminPage = screen.getByTestId('admin page');
+
+          expect(adminPage).toBeInTheDocument();
         });
       });
+    });
+    describe('GIVEN: UNHAPPY PATH: username, email, and matching passwords,', ()=>{
+      // Unhappy paths
     });
   });
 });
