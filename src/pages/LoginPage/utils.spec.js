@@ -1,8 +1,11 @@
-import { submitLoginInfo } from './utils';
+import { submitLoginInfo, navigateToAdminPage } from './utils';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import { authStore, setLoginSuccess } from '../../stores/authStore';
+import { setLoginSuccess } from '../../stores/authStore';
+import { navigate } from 'svelte-routing';
+import { routes } from '../routes';
 
 jest.mock('firebase/auth');
+jest.mock('svelte-routing');
 jest.mock('../../stores/authStore');
 
 describe('submitLoginCreds()', ()=>{
@@ -34,5 +37,14 @@ describe('submitLoginCreds()', ()=>{
 
       expect(setLoginSuccess).toBeCalledWith(expectedResponse);
     });
+  });
+});
+describe('navigateToAdminPage()', ()=>{
+  it('It invokes the navigate third-party function,', ()=>{
+    navigate.mockImplementation(jest.fn());
+
+    navigateToAdminPage();
+
+    expect(navigate).toHaveBeenLastCalledWith(routes.ADMIN);
   });
 });
