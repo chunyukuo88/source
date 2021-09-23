@@ -32,6 +32,7 @@
             <Link to="/">Home</Link>
             <Link to="about">About</Link>
             <Link to="profile">Profile</Link>
+            <Link to="admin">admin</Link>
         </nav>
     </header>
 
@@ -50,8 +51,14 @@
             <p>That's what it's all about!</p>
         </Route>
 
+        <PrivateRoute path="admin" let:location>
+            <h3>admin</h3>
+            <p>now you can admin things</p>
+            <button on:click={handleLogout}>Logout</button>
+        </PrivateRoute>
+
         <PrivateRoute path="profile" let:location>
-            <h3>Welcome {$user.username}</h3>
+            <h3>welcome {$user.email}</h3>
             <button on:click={handleLogout}>Logout</button>
         </PrivateRoute>
     </main>

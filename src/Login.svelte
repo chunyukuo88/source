@@ -1,5 +1,6 @@
 <script>
   import { useNavigate, useLocation } from "svelte-navigator";
+  import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
   import { user } from "./stores";
 
   const navigate = useNavigate();
@@ -8,9 +9,13 @@
   let username;
   let password;
 
-  function handleSubmit() {
-    $user = { username, password };
-    const from = $location.state?.from || "/";
+  async function handleSubmit(event) {
+    event.preventDefault();
+    const auth = getAuth();
+    const userCredential = await signInWithEmailAndPassword(auth, username, password);
+    console.log(userCredential);
+    $user = userCredential.user;
+    const from = $location.state?.from || "/admin";
     navigate(from, { replace: true });
   }
 </script>
