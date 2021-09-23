@@ -1,1 +1,0 @@
-<h1 data-testid="blog page">blog</h1>
