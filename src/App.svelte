@@ -1,65 +1,61 @@
 <script>
-  import { Router, Route, Link } from "svelte-navigator";
-  import Login from "./Login.svelte";
-  import PrivateRoute from "./PrivateRoute.svelte";
-  import { user } from "./stores";
+  import { Router, Route, Link } from 'svelte-navigator';
+  import Login from './Login.svelte';
+  import PrivateRoute from './PrivateRoute.svelte';
+  import { user } from './stores';
   import { initializeApp } from 'firebase/app';
   import { onMount } from 'svelte';
+  import { firebaseConfig } from '../config/config';
+  import { getAuth, signOut } from 'firebase/auth';
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAkn-EgoWA1BNFgaGCSfmj_44T2wVFea80",
-    authDomain: "recycle-7ae0b.firebaseapp.com",
-    projectId: "recycle-7ae0b",
-    storageBucket: "recycle-7ae0b.appspot.com",
-    messagingSenderId: "404648080932",
-    appId: "1:404648080932:web:5a11bc3d65d8a2e9550ab1",
-    measurementId: "G-JDV4JW27NQ"
-  };
-  onMount(()=>{
-    initializeApp(firebaseConfig);
-  });
+
+  onMount(()=> initializeApp(firebaseConfig));
 
   function handleLogout() {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+    }).catch((error) => {
+      console.log('An error happened.\nError:\n', error);
+    });
     $user = null;
   }
 </script>
 
 <Router>
     <header>
-        <h1>History</h1>
-
+        <h1>recycle things!</h1>
         <nav>
-            <Link to="/">Home</Link>
-            <Link to="about">About</Link>
-            <Link to="profile">Profile</Link>
-            <Link to="admin">admin</Link>
+            <Link to='/'>home</Link>
+            <Link to='about'>about</Link>
+            <Link to='profile'>profile</Link>
+            <Link to='admin'>admin</Link>
         </nav>
     </header>
 
     <main>
-        <Route path="login">
+        <Route path='login'>
             <Login />
         </Route>
 
-        <Route path="/">
+        <Route path='/'>
             <h3>Home</h3>
-            <p>Home sweet home...</p>
+            <p>this is the homepage</p>
         </Route>
 
-        <Route path="about">
+        <Route path='about'>
             <h3>About</h3>
-            <p>That's what it's all about!</p>
+            <p>this is the about page</p>
         </Route>
 
-        <PrivateRoute path="admin" let:location>
+        <PrivateRoute path='admin' let:location>
             <h3>admin</h3>
             <p>now you can admin things</p>
             <button on:click={handleLogout}>Logout</button>
         </PrivateRoute>
 
-        <PrivateRoute path="profile" let:location>
-            <h3>welcome {$user.email}</h3>
-            <button on:click={handleLogout}>Logout</button>
+        <PrivateRoute path='profile' let:location>
+            <h3>welcome, {$user.email}</h3>
+            <button on:click={handleLogout}>logout</button>
         </PrivateRoute>
     </main>
 </Router>
