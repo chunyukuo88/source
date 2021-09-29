@@ -6,8 +6,8 @@
   import { initializeApp } from 'firebase/app';
   import { onMount } from 'svelte';
   import { firebaseConfig } from '../config/config';
+  import { routes } from './routes';
   import { getAuth, signOut } from 'firebase/auth';
-
 
   onMount(()=> initializeApp(firebaseConfig));
 
@@ -25,35 +25,35 @@
     <header>
         <h1>recycle things!</h1>
         <nav>
-            <Link to='/'>home</Link>
-            <Link to='about'>about</Link>
-            <Link to='profile'>profile</Link>
-            <Link to='admin'>admin</Link>
+            <Link to={routes.HOME}>home</Link>
+            <Link to={routes.ABOUT}>about</Link>
+            <Link to={routes.PROFILE}>profile</Link>
+            <Link to={routes.ADMIN}>admin</Link>
         </nav>
     </header>
 
     <main>
-        <Route path='login'>
+        <Route path={routes.LOGIN}>
             <Login />
         </Route>
 
-        <Route path='/'>
+        <Route path={routes.HOME}>
             <h3>Home</h3>
             <p>this is the homepage</p>
         </Route>
 
-        <Route path='about'>
+        <Route path={routes.ABOUT}>
             <h3>About</h3>
             <p>this is the about page</p>
         </Route>
 
-        <PrivateRoute path='admin' let:location>
+        <PrivateRoute path={routes.ADMIN} let:location>
             <h3>admin</h3>
             <p>now you can admin things</p>
             <button on:click={handleLogout}>Logout</button>
         </PrivateRoute>
 
-        <PrivateRoute path='profile' let:location>
+        <PrivateRoute path={routes.PROFILE} let:location>
             <h3>welcome, {$user.email}</h3>
             <button on:click={handleLogout}>logout</button>
         </PrivateRoute>
