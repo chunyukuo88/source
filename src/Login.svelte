@@ -1,7 +1,7 @@
 <script>
-  import { useNavigate, useLocation } from "svelte-navigator";
-  import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-  import { user } from "./stores";
+  import { useNavigate, useLocation } from 'svelte-navigator';
+  import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+  import { user } from './stores';
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -20,21 +20,23 @@
   }
 </script>
 
-<h3>Login</h3>
-<form on:submit={handleSubmit}>
-    <input
-            bind:value={username}
-            type="text"
-            name="username"
-            placeholder="Username"
-    />
-    <br />
-    <input
-            bind:value={password}
-            type="password"
-            name="password"
-            placeholder="Password"
-    />
-    <br />
-    <button type="submit">Login</button>
-</form>
+<div data-testid="ha">
+    <h3>Login</h3>
+    <form on:submit={handleSubmit}>
+        <input
+                bind:value={username}
+                type="text"
+                name="username"
+                placeholder="Username"
+        />
+        <br />
+        <input
+                bind:value={password}
+                type="password"
+                name="password"
+                placeholder="Password"
+        />
+        <br />
+        <button type="submit">Login</button>
+    </form>
+</div>

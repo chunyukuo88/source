@@ -43,7 +43,7 @@
         </Route>
 
         <Route path={routes.ABOUT}>
-            <h3>About</h3>
+            <h3 data-testId='about page'>About</h3>
             <p>this is the about page</p>
         </Route>
 

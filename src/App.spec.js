@@ -7,15 +7,24 @@ const navigateTo = (path) => window.history.pushState({}, '', `${path}`);
 
 describe('App.svelte', ()=>{
     describe('Routing:', ()=>{
+        it('', async ()=>{
+            render(App);
+            const navBarLink = screen.queryByRole('link', { name: navLabel });
+
+            await fireEvent.click(navBarLink);
+            const expectedPage = screen.queryByTestId('about page');
+
+            expect(expectedPage).toBeInTheDocument();
+            expect(window.location.pathname).toBe(routes.ABOUT);
+        });
         describe('WHEN: Nav bar links work properly,', ()=>{
             it.each`
                   $navLabel   |   displayedPage     |   URL
-                  ${'home'}   |   ${'homepage'}     |   ${routes.HOME}
                   ${'about'}  |   ${'about page'}   |   ${routes.ABOUT}
                   ${'log in'} |   ${'login page'}   |   ${routes.PROFILE}
                   ${'blog'}   |   ${'blog page'}    |   ${routes.ADMIN}
             `('THEN: the user clicks $navLabel and is taken to $displayedPage',
-                async ({navLabel, displayedPage, URL})=>{
+            async ({navLabel, displayedPage, URL})=>{
                 navigateTo(routes.HOME);
                 render(App);
                 const navBarLink = screen.queryByRole('link', { name: navLabel });
