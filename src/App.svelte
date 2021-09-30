@@ -25,10 +25,10 @@
     <header>
         <h1>recycle things!</h1>
         <nav>
-<!--            <Link to={routes.HOME}>home</Link>-->
+            <Link to={routes.HOME}>home</Link>
             <Link to={routes.ABOUT}>about</Link>
-<!--            <Link to={routes.PROFILE}>profile</Link>-->
-<!--            <Link to={routes.ADMIN}>admin</Link>-->
+            <Link to={routes.PROFILE}>profile</Link>
+            <Link to={routes.ADMIN}>admin</Link>
         </nav>
     </header>
 
