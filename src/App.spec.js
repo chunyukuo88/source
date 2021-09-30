@@ -7,16 +7,6 @@ const navigateTo = (path) => window.history.pushState({}, '', `${path}`);
 
 describe('App.svelte', ()=>{
     describe('Routing:', ()=>{
-        it('', async ()=>{
-            render(App);
-            const navBarLink = screen.queryByRole('link', { name: navLabel });
-
-            await fireEvent.click(navBarLink);
-            const expectedPage = screen.queryByTestId('about page');
-
-            expect(expectedPage).toBeInTheDocument();
-            expect(window.location.pathname).toBe(routes.ABOUT);
-        });
         describe('WHEN: Nav bar links work properly,', ()=>{
             it.each`
                   $navLabel   |   displayedPage     |   URL
