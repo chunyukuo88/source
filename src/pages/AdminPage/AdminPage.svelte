@@ -1,1 +1,0 @@
-<h1 data-testid="admin page">管理页面</h1>

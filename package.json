@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "rollup -c",
+    "c": "jest --coverage",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
     "test": "jest --watch --colors --coverage"

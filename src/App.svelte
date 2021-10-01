@@ -1,43 +1,65 @@
 <script>
-  import LoginPage from './pages/LoginPage/LoginPage.svelte';
-  import Homepage from './pages/Homepage.svelte';
-  import About from './pages/About.svelte';
-  import AdminPage from './pages/AdminPage/AdminPage.svelte';
-  import BlogPage from './pages/Blog.svelte';
   import { Router, Route, Link } from 'svelte-routing';
+  import Login from './Login.svelte';
+  import PrivateRoute from './PrivateRoute.svelte';
+  import { user } from './stores';
   import { initializeApp } from 'firebase/app';
   import { onMount } from 'svelte';
-  import { routes } from './pages/routes';
+  import { firebaseConfig } from '../config/config';
+  import { routes } from './routes';
+  import { getAuth, signOut } from 'firebase/auth';
 
-  let path = window.location.pathname;
+  onMount(()=> initializeApp(firebaseConfig));
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyAkn-EgoWA1BNFgaGCSfmj_44T2wVFea80",
-    authDomain: "recycle-7ae0b.firebaseapp.com",
-    projectId: "recycle-7ae0b",
-    storageBucket: "recycle-7ae0b.appspot.com",
-    messagingSenderId: "404648080932",
-    appId: "1:404648080932:web:5a11bc3d65d8a2e9550ab1",
-    measurementId: "G-JDV4JW27NQ"
-  };
-
-  onMount(()=>{
-    initializeApp(firebaseConfig);
-  });
+  function handleLogout() {
+    const auth = getAuth();
+    signOut(auth).then(() => {
+    }).catch((error) => {
+      console.log('An error happened.\nError:\n', error);
+    });
+    $user = null;
+  }
 </script>
 
-<Router url={window.location.pathname}>
-  <div class="container">
-    <nav>
-      <Link to={routes.HOME}>home</Link>
-      <Link to={routes.LOGIN}>log in</Link>
-      <Link to={routes.BLOG}>blog</Link>
-      <Link to={routes.ABOUT}>about</Link>
-    </nav>
-    <Route path={routes.HOME}><Homepage/></Route>
-    <Route path={routes.LOGIN}><LoginPage/></Route>
-    <Route path={routes.BLOG}><BlogPage/></Route>
-    <Route path={routes.ABOUT}><About/></Route>
-    <Route path={routes.ADMIN}><AdminPage/></Route>
-  </div>
+<Router>
+    <header>
+        <h1>recycle things!</h1>
+        <nav>
+            <Link to={routes.HOME}>home</Link>
+            <Link to={routes.ABOUT}>about</Link>
+            <Link to={routes.PROFILE}>profile</Link>
+            <Link to={routes.ADMIN}>admin</Link>
+        </nav>
+    </header>
+
+    <main>
+        <Route path={routes.LOGIN}>
+            <Login />
+        </Route>
+
+        <Route path={routes.HOME}>
+            <div data-testid='home-page'>
+                <h3>Home</h3>
+                <p>this is the homepage</p>
+            </div>
+        </Route>
+
+        <Route path={routes.ABOUT}>
+            <div data-testid='about-page'>
+                <h3 data-testId='about page'>About</h3>
+                <p>this is the about page</p>
+            </div>
+        </Route>
+
+        <PrivateRoute path={routes.ADMIN} let:location>
+            <h3>admin</h3>
+            <p>now you can admin things</p>
+            <button on:click={handleLogout}>Logout</button>
+        </PrivateRoute>
+
+        <PrivateRoute path={routes.PROFILE} let:location>
+            <h3>welcome, {$user.email}</h3>
+            <button on:click={handleLogout}>logout</button>
+        </PrivateRoute>
+    </main>
 </Router>
