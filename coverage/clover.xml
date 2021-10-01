@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1633055363985" clover="3.2.0">
-  <project timestamp="1633055363985" name="All files">
-    <metrics statements="63" coveredstatements="49" conditionals="10" coveredconditionals="1" methods="2" coveredmethods="1" elements="75" coveredelements="51" complexity="0" loc="63" ncloc="63" packages="2" files="7" classes="7"/>
+<coverage generated="1633056522670" clover="3.2.0">
+  <project timestamp="1633056522670" name="All files">
+    <metrics statements="58" coveredstatements="45" conditionals="10" coveredconditionals="1" methods="2" coveredmethods="1" elements="70" coveredelements="47" complexity="0" loc="58" ncloc="58" packages="3" files="7" classes="7"/>
     <package name="config">
       <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="config.js" path="/Users/alexgochenour/WebstormProjects/source/config/config.js">
@@ -10,7 +10,7 @@
       </file>
     </package>
     <package name="src">
-      <metrics statements="62" coveredstatements="48" conditionals="10" coveredconditionals="1" methods="2" coveredmethods="1"/>
+      <metrics statements="42" coveredstatements="34" conditionals="6" coveredconditionals="1" methods="2" coveredmethods="1"/>
       <file name="App.svelte" path="/Users/alexgochenour/WebstormProjects/source/src/App.svelte">
         <metrics statements="32" coveredstatements="24" conditionals="4" coveredconditionals="0" methods="2" coveredmethods="1"/>
         <line num="2" count="1" type="stmt"/>
@@ -46,29 +46,6 @@
         <line num="61" count="0" type="cond" truecount="0" falsecount="4"/>
         <line num="62" count="0" type="stmt"/>
       </file>
-      <file name="Login.svelte" path="/Users/alexgochenour/WebstormProjects/source/src/Login.svelte">
-        <metrics statements="20" coveredstatements="14" conditionals="4" coveredconditionals="0" methods="0" coveredmethods="0"/>
-        <line num="3" count="1" type="stmt"/>
-        <line num="4" count="1" type="stmt"/>
-        <line num="5" count="1" type="stmt"/>
-        <line num="6" count="1" type="stmt"/>
-        <line num="15" count="0" type="stmt"/>
-        <line num="16" count="0" type="stmt"/>
-        <line num="17" count="0" type="stmt"/>
-        <line num="18" count="0" type="stmt"/>
-        <line num="19" count="0" type="stmt"/>
-        <line num="21" count="0" type="stmt"/>
-        <line num="25" count="3" type="stmt"/>
-        <line num="26" count="3" type="stmt"/>
-        <line num="27" count="3" type="stmt"/>
-        <line num="28" count="3" type="stmt"/>
-        <line num="29" count="3" type="cond" truecount="0" falsecount="2"/>
-        <line num="34" count="3" type="stmt"/>
-        <line num="35" count="3" type="stmt"/>
-        <line num="36" count="3" type="cond" truecount="0" falsecount="2"/>
-        <line num="41" count="3" type="stmt"/>
-        <line num="42" count="3" type="stmt"/>
-      </file>
       <file name="PrivateRoute.svelte" path="/Users/alexgochenour/WebstormProjects/source/src/PrivateRoute.svelte">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="2" count="1" type="stmt"/>
@@ -90,6 +67,27 @@
       <file name="stores.js" path="/Users/alexgochenour/WebstormProjects/source/src/stores.js">
         <metrics statements="1" coveredstatements="1" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="3" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.pages.Login">
+      <metrics statements="15" coveredstatements="10" conditionals="4" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="Login.svelte" path="/Users/alexgochenour/WebstormProjects/source/src/pages/Login/Login.svelte">
+        <metrics statements="15" coveredstatements="10" conditionals="4" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="11" count="0" type="stmt"/>
+        <line num="12" count="0" type="stmt"/>
+        <line num="13" count="0" type="stmt"/>
+        <line num="14" count="0" type="stmt"/>
+        <line num="15" count="0" type="stmt"/>
+        <line num="19" count="3" type="stmt"/>
+        <line num="20" count="3" type="stmt"/>
+        <line num="21" count="3" type="stmt"/>
+        <line num="22" count="3" type="cond" truecount="0" falsecount="2"/>
+        <line num="23" count="3" type="cond" truecount="0" falsecount="2"/>
+        <line num="24" count="3" type="stmt"/>
       </file>
     </package>
   </project>

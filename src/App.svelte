@@ -1,6 +1,6 @@
 <script>
   import { Router, Route, Link } from 'svelte-routing';
-  import Login from './Login.svelte';
+  import Login from './pages/Login/Login.svelte';
   import PrivateRoute from './PrivateRoute.svelte';
   import { user } from './stores';
   import { initializeApp } from 'firebase/app';
