@@ -22,7 +22,7 @@
   }
 </script>
 
-<div data-testid="ha">
+<div data-testid='login-page'>
     <h3>Login</h3>
     <form on:submit={handleSubmit}>
         <input

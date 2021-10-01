@@ -38,13 +38,17 @@
         </Route>
 
         <Route path={routes.HOME}>
-            <h3>Home</h3>
-            <p>this is the homepage</p>
+            <div data-testid='home-page'>
+                <h3>Home</h3>
+                <p>this is the homepage</p>
+            </div>
         </Route>
 
         <Route path={routes.ABOUT}>
-            <h3 data-testId='about page'>About</h3>
-            <p>this is the about page</p>
+            <div data-testid='about-page'>
+                <h3 data-testId='about page'>About</h3>
+                <p>this is the about page</p>
+            </div>
         </Route>
 
         <PrivateRoute path={routes.ADMIN} let:location>
