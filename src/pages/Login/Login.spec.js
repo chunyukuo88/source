@@ -1,53 +1,30 @@
 import Login from './Login.svelte';
-import { render, screen } from '@testing-library/svelte';
-import userEvent from "@testing-library/user-event";
+import { handleSubmit } from '../../stores/user';
+import { fireEvent, render, screen } from '@testing-library/svelte';
 import '@testing-library/jest-dom';
-import { routes } from '../../routes';
-import { navigate } from 'svelte-routing';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
 
-jest.mock('firebase/auth');
-jest.mock('svelte-routing');
+jest.mock('../../stores/user');
 
 describe('Login.svelte', ()=>{
-   describe('GIVEN: The user has entered VALID username and password, ', ()=>{
+   describe('GIVEN: The user has entered username and password, ', ()=>{
       describe('WHEN: The user clicks the submit button, ', ()=>{
-         // it('THEN: The user store is updated, ', async ()=>{
-            //
-         // });
-         it('AND: The user is routed to the Admin page, ', async ()=>{
-            navigate.mockImplementation(jest.fn());
-            getAuth.mockImplementation(jest.fn());
-            const getMockUserCredentials = () => ({
-               user: {},
-            });
-            signInWithEmailAndPassword.mockImplementation(getMockUserCredentials);
+         it('THEN: The submission handler is invoked with the username and password', async ()=>{
+            handleSubmit.mockImplementation(jest.fn());
+
             render(Login);
-            const userNameInputBox = screen.queryByTestId('username');
-            const passwordInputBox = screen.queryByTestId('password');
-            const submissionButton = screen.queryByTestId('submit');
+            let username = screen.getByTestId('username');
+            let password = screen.getByTestId('password');
+            const submissionButton = screen.getByTestId('submit');
 
-            await userEvent.type(userNameInputBox, 'validUserName');
-            await userEvent.type(passwordInputBox, 'validPassword');
-            await userEvent.click(submissionButton);
+            await fireEvent.input(username, 'some username');
+            await fireEvent.input(password, 'some password');
+            username = screen.getByTestId('username');
+            password = screen.getByTestId('password');
+            await fireEvent.click(submissionButton);
 
-            expect(navigate).toHaveBeenCalled();
+            expect(handleSubmit).toHaveBeenCalledWith(username.value, password.value);
          });
       });
    });
-   describe('GIVEN: The user has entered INVALID username and password, ', ()=>{
-      describe('WHEN: The user clicks the submit button, ', ()=>{
-         it('THEN: An error message is displayed, ', ()=>{
-            //
-         });
-      });
-   });
-});
-
-it('', ()=>{
-   render(Login);
-   const loginPage = screen.getByTestId('login-page');
-
-   expect(loginPage).toBeInTheDocument();
 });
 

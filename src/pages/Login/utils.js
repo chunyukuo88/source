@@ -1,1 +1,0 @@
-export const deleteMe = () => console.log('deleteMe()');

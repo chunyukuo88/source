@@ -2,7 +2,7 @@
   import { Router, Route, Link } from 'svelte-routing';
   import Login from './pages/Login/Login.svelte';
   import PrivateRoute from './PrivateRoute.svelte';
-  import { user } from './stores';
+  import { user } from './stores/user';
   import { initializeApp } from 'firebase/app';
   import { onMount } from 'svelte';
   import { firebaseConfig } from '../config/config';

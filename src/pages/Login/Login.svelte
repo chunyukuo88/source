@@ -1,27 +1,24 @@
 <script>
-  import { navigate } from 'svelte-routing';
-  import { routes } from '../../routes';
-  import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-  import { user } from '../../stores';
-
+  import { handleSubmit } from '../../stores/user';
   let username;
   let password;
-
-  async function handleSubmit() {
-    const auth = getAuth();
-    const userCredential = await signInWithEmailAndPassword(auth, username, password);
-    $user = userCredential.user;
-    navigate(routes.ADMIN);
-  }
 </script>
 
 <div data-testid='login-page'>
     <h3>Login</h3>
-        <div data-testid='username'>
-            <input bind:value={username} type='text' name='username' placeholder='Username'/>
-        </div>
-        <div data-testid='password'>
-            <input bind:value={password} type='password' name='password' placeholder='Password'/>
-        </div>
-        <button type='submit' data-testid='submit' on:click|preventDefault={handleSubmit}>Login</button>
+    <input bind:value={username}
+           data-testid='username'
+           type='text'
+           name='username'
+           placeholder='Username'/>
+    <input bind:value={password}
+           data-testid='password'
+           type='password'
+           name='password'
+           placeholder='Password'/>
+    <button type='submit'
+            data-testid='submit'
+            on:click|preventDefault={() => handleSubmit(username, password)}>
+        Login
+    </button>
 </div>
