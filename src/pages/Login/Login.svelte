@@ -7,8 +7,7 @@
   let username;
   let password;
 
-  async function handleSubmit(event) {
-    event.preventDefault();
+  async function handleSubmit() {
     const auth = getAuth();
     const userCredential = await signInWithEmailAndPassword(auth, username, password);
     $user = userCredential.user;
@@ -24,5 +23,5 @@
         <div data-testid='password'>
             <input bind:value={password} type='password' name='password' placeholder='Password'/>
         </div>
-        <button type='submit' data-testid='submit' on:click={handleSubmit}>Login</button>
+        <button type='submit' data-testid='submit' on:click|preventDefault={handleSubmit}>Login</button>
 </div>

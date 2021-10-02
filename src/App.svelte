@@ -52,14 +52,18 @@
         </Route>
 
         <PrivateRoute path={routes.ADMIN} let:location>
-            <h3>admin</h3>
-            <p>now you can admin things</p>
-            <button on:click={handleLogout}>Logout</button>
+            <div data-testid='admin-page'>
+                <h3>admin</h3>
+                <p>now you can admin things</p>
+                <button on:click={handleLogout}>Logout</button>
+            </div>
         </PrivateRoute>
 
         <PrivateRoute path={routes.PROFILE} let:location>
-            <h3>welcome, {$user.email}</h3>
-            <button on:click={handleLogout}>logout</button>
+            <div data-testid='profile-page'>
+                <h3>welcome, {$user.email}</h3>
+                <button on:click={handleLogout}>logout</button>
+            </div>
         </PrivateRoute>
     </main>
 </Router>
