@@ -1,6 +1,6 @@
 import Profile from './Profile.svelte';
-import { user, handleLogout } from '../../stores/user';
-import { render, screen, fireEvent } from '@testing-library/svelte';
+import { user } from '../../stores/user';
+import { render, screen } from '@testing-library/svelte';
 import '@testing-library/jest-dom';
 
 const testEmail = 'test@test.com';
@@ -21,6 +21,7 @@ describe('WHEN: The user clicks the logout button', ()=>{
         const welcome = screen.queryByTestId('welcome');
         const expectedContent = `welcome, ${testEmail}`;
 
+        expect(welcome.tagName).toBe('H3');
         expect(welcome).toBeInTheDocument();
         expect(welcome).toHaveTextContent(expectedContent);
     });
