@@ -1,7 +1,7 @@
 import { writable } from 'svelte/store';
-import {routes} from "../routes";
+import { routes } from '../routes';
 import { navigate } from 'svelte-routing';
-import {getAuth, signInWithEmailAndPassword, signOut} from 'firebase/auth';
+import { getAuth, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
 export const user = writable(null);
 
@@ -12,13 +12,14 @@ export async function handleSubmit(username, password) {
     navigate(routes.ADMIN);
 }
 
-export function handleLogout() {
+export async function handleLogout() {
     const auth = getAuth();
-    signOut(auth)
-        .then(() => {})
-        .catch((error) => {
-            console.log('An error happened.\nError:\n', error);
-        });
-    user.set(null);
-    navigate(routes.HOME);
+    try {
+        await signOut(auth);
+        user.set(null);
+        navigate(routes.HOME);
+    } catch (e) {
+        console.log('An error happened.\nError:\n', e);
+        alert('Unexpected error; please refresh the page.');
+    }
 }
