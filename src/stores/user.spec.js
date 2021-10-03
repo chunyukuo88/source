@@ -7,9 +7,6 @@ import { routes } from '../routes';
 jest.mock('firebase/auth');
 jest.mock('svelte-routing');
 
-// TODO: Consult this for reference:
-// https://github.com/dirv/svelte-testing-demo/blob/main/spec/stores/user.spec.js
-
 const [ username, password ] = [ 'username', 'password' ];
 const home = routes.HOME;
 
@@ -49,7 +46,6 @@ describe('stores/user.js', ()=>{
                         user: {},
                     }));
                     signOut.mockImplementation(jest.fn());
-                    expect(get(user)).toBeNull();
 
                     await handleSubmit(username, password);
 

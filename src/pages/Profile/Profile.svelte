@@ -4,6 +4,6 @@
 </script>
 
 <div data-testid='profile-page'>
-    <h3>welcome, {$user.email}</h3>
+    <h3 data-testid="welcome">welcome, {$user.email}</h3>
     <button on:click={handleLogout}>logout</button>
 </div>
