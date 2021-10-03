@@ -3,9 +3,6 @@ import { routes } from './routes';
 import { render, screen, fireEvent } from '@testing-library/svelte';
 import '@testing-library/jest-dom';
 import { user } from './stores/user';
-import { darkMode, setToLightMode, setToDarkMode } from './stores/darkMode';
-
-jest.mock('./stores/darkMode');
 
 const navigateTo = (path) => window.history.pushState({}, '', `${path}`);
 const pathRequiresLoggedIn = (path) => (path === routes.PROFILE || path === routes.ADMIN);
