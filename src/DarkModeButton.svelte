@@ -1,6 +1,6 @@
 <script>
   function toggle() {
-    window.document.body.classList.toggle('dark-mode')
+    window.document.body.classList.toggle('dark-mode');
   }
 </script>
 
@@ -19,6 +19,5 @@
     }
     :global(body.dark-mode) button {
         background-color: #0084f6;
-        color: white;
     }
 </style>
