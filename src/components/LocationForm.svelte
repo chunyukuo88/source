@@ -7,17 +7,27 @@
         { id: 3, category: 'automotive', name: 'tires'},
         { id: 4, category: 'automotive', name: 'vehicle'},
     ];
-    export let addressCity = '';
-    export let addressState = '';
-    export let addressStreet = '';
-    export let addressZipCode = '';
-    export let dba = '';
-    export let phone = '';
+    let addressCity = '';
+    let addressState = '';
+    let addressStreet = '';
+    let addressZipCode = '';
+    let dba = '';
+    let phone = '';
 
     let selected;
     let recyclable = '';
 
-    // TODO: https://recycle-7ae0b-default-rtdb.firebaseio.com/
+    let isDisabled = true;
+    $: isDisabled = (
+           addressCity.length < 3
+        || addressState.length < 2
+        || addressStreet.length < 5
+        || addressZipCode.length < 6
+        || dba.length < 5
+        || phone.length < 10
+    ) && true;
+
+
 </script>
 
 <div data-testid='login-page'>
@@ -59,11 +69,18 @@
            type='addressState'
            name='addressZipCode'
            placeholder='Zip code'/>
-    <button type='submit'
-            data-testid='submit'
-            name="submit"
-            on:click|preventDefault={submissionHandler}>
-        submit
-    </button>
+    {#if isDisabled}
+        <button name="submit"
+                disabled
+                on:click|preventDefault={submissionHandler}>
+            submit
+        </button>
+    {:else}
+        <button name="submit"
+                on:click|preventDefault={submissionHandler}>
+            submit
+        </button>
+    {/if}
+
 </div>
 
