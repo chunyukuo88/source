@@ -17,7 +17,6 @@
     let selected;
     let recyclable = '';
 
-    let isDisabled = true;
     $: isDisabled = (
            addressCity.length < 3
         || addressState.length < 2
@@ -26,8 +25,6 @@
         || dba.length < 5
         || phone.length < 10
     ) && true;
-
-
 </script>
 
 <div data-testid='login-page'>
