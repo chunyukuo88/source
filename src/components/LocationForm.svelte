@@ -7,6 +7,7 @@
         { id: 3, category: 'automotive', name: 'tires'},
         { id: 4, category: 'automotive', name: 'vehicle'},
     ];
+
     let addressCity = '';
     let addressState = '';
     let addressStreet = '';
@@ -14,14 +15,11 @@
     let dba = '';
     let phone = '';
 
-    let selected;
-    let recyclable = '';
-
-    export let isDisabled = {
-        disabled: true,
+    let selected = {
+        name: 'none'
     };
 
-    $: isDisabled.disabled = (
+    $: isDisabled = (
            addressCity.length < 3
         || addressState.length < 2
         || addressStreet.length < 5
@@ -43,13 +41,12 @@
            type='tel'
            name='phone'
            placeholder='Phone'/>
-    <select bind:value={selected} on:change="{() => recyclable = ''}">
+    <select data-testid="dropdown" bind:value={selected}>
         {#each recyclables as recyclable}
-            <option value={recyclable}>
-                {recyclable.category} - {recyclable.name}
-            </option>
+            <option value={recyclable}>{recyclable.name}</option>
         {/each}
     </select>
+    <p id="user-selection">Your selection: {selected.name}</p>
     <input bind:value={addressCity}
            data-testid='addressCity'
            type='text'
@@ -70,7 +67,7 @@
            type='addressState'
            name='addressZipCode'
            placeholder='Zip code'/>
-    {#if isDisabled.disabled}
+    {#if isDisabled}
         <button name="submit" disabled>submit</button>
     {:else}
         <button name="submit"
