@@ -10,8 +10,8 @@ describe('Interactions', ()=>{
        jest.clearAllMocks();
     });
     describe('GIVEN: The form is complete and valid', ()=>{
-       describe('WHEN: The user clicks the submit button,', ()=>{
-          it('THEN: The submission handler is invoked.', async ()=>{
+        describe('GIVEN: The form is NOT complete', ()=>{
+            it('THEN: The submission button is not clickable.', async ()=>{
               submissionHandler.mockImplementation(jest.fn());
               render(LocationForm);
 
@@ -19,19 +19,33 @@ describe('Interactions', ()=>{
 
               await fireEvent.click(submissionButton);
 
-              // TODO: Figure out why this test is passing--it shouldn't
-              expect(submissionHandler).toBeCalledTimes(1);
+              expect(submissionHandler).toBeCalledTimes(0);
               expect(submissionButton).toBeDisabled();
           });
        });
     });
-    describe('GIVEN: The form is NOT complete', ()=>{
-        it('THEN: The submission button is not clickable.', ()=>{
-          render(LocationForm);
+    describe('WHEN: The user clicks the submit button,', ()=>{
+        it('THEN: The submission handler is invoked.', async ()=>{
+            render(LocationForm);
+            const addressCity = screen.getByTestId('addressCity');
+            const addressState = screen.getByTestId('addressState');
+            const addressStreet = screen.getByTestId('addressStreet');
+            const addressZipCode = screen.getByTestId('addressZipCode');
+            const dba = screen.getByTestId('dba');
+            const phone = screen.getByTestId('phone');
 
-          const submissionButton = screen.getByRole('button', { name: 'submit'});
+            await fireEvent.input(addressCity, { target: { value: 'Killadelphia' }});
+            await fireEvent.input(addressState, { target: { value: '...of disaster' }});
+            await fireEvent.input(addressStreet, { target: { value: '123 Sesame Street' }});
+            await fireEvent.input(addressZipCode, { target: { value: '12345' }});
+            await fireEvent.input(dba, { target: { value: 'Al\'s Used Fireworks' }});
+            await fireEvent.input(phone, { target: { value: '1-800-EXLAX' }});
 
-          expect(submissionButton).toBeDisabled();
+            const submissionButton = await screen.getByRole('button', { name: 'submit'});
+
+            await fireEvent.click(submissionButton);
+
+            expect(submissionHandler).toBeCalledTimes(1);
         });
     });
 });

@@ -17,11 +17,15 @@
     let selected;
     let recyclable = '';
 
-    $: isDisabled = (
+    export let isDisabled = {
+        disabled: true,
+    };
+
+    $: isDisabled.disabled = (
            addressCity.length < 3
         || addressState.length < 2
         || addressStreet.length < 5
-        || addressZipCode.length < 6
+        || addressZipCode.length < 5
         || dba.length < 5
         || phone.length < 10
     ) && true;
@@ -66,18 +70,13 @@
            type='addressState'
            name='addressZipCode'
            placeholder='Zip code'/>
-    {#if isDisabled}
-        <button name="submit"
-                disabled
-                on:click|preventDefault={submissionHandler}>
-            submit
-        </button>
+    {#if isDisabled.disabled}
+        <button name="submit" disabled>submit</button>
     {:else}
         <button name="submit"
                 on:click|preventDefault={submissionHandler}>
             submit
         </button>
     {/if}
-
 </div>
 
