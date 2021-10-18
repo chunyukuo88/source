@@ -1,5 +1,9 @@
 <script>
-    import { submissionHandler } from './utils';
+    import { LocationInfo,
+        submissionHandler,
+        inputsAreTooShort
+    } from './utils';
+    import { v4 as uuidv4 } from 'uuid';
 
     const recyclables = [
         { id: 1, category: 'automotive', name: 'motor oil'},
@@ -8,26 +12,10 @@
         { id: 4, category: 'automotive', name: 'vehicle'},
     ];
 
-    let locationInfo = {
-        addressCity: '',
-        addressState: '',
-        addressStreet: '',
-        addressZipCode: '',
-        dba: '',
-        phone: '',
-        selected: {
-            name: 'none'
-        },
-    };
+    let locationId = uuidv4();
+    let locationInfo = new LocationInfo(locationId);
 
-    $: isDisabled = (
-           locationInfo.addressCity.length < 3
-        || locationInfo.addressState.length < 2
-        || locationInfo.addressStreet.length < 5
-        || locationInfo.addressZipCode.length < 5
-        || locationInfo.dba.length < 5
-        || locationInfo.phone.length < 10
-    ) && true;
+    $: isDisabled = (inputsAreTooShort(locationInfo)) && true;
 </script>
 
 <div data-testid='login-page'>
@@ -68,6 +56,11 @@
            type='addressState'
            name='addressZipCode'
            placeholder='Zip code'/>
+    <input bind:value={locationInfo.note}
+           data-testid='note'
+           type='note'
+           name='note'
+           placeholder='Note'/>
     {#if isDisabled}
         <button name="submit" disabled>submit</button>
     {:else}

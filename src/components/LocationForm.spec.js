@@ -1,7 +1,7 @@
 import LocationForm from './LocationForm.svelte';
 import { fireEvent, render, screen } from '@testing-library/svelte';
 import '@testing-library/jest-dom';
-import { submissionHandler } from './utils';
+import { LocationInfo, submissionHandler } from './utils';
 import userEvent from "@testing-library/user-event";
 
 jest.mock('./utils');
