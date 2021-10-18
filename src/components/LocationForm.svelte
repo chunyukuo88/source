@@ -8,61 +8,62 @@
         { id: 4, category: 'automotive', name: 'vehicle'},
     ];
 
-    let addressCity = '';
-    let addressState = '';
-    let addressStreet = '';
-    let addressZipCode = '';
-    let dba = '';
-    let phone = '';
-
-    let selected = {
-        name: 'none'
+    let locationInfo = {
+        addressCity: '',
+        addressState: '',
+        addressStreet: '',
+        addressZipCode: '',
+        dba: '',
+        phone: '',
+        selected: {
+            name: 'none'
+        },
     };
 
     $: isDisabled = (
-           addressCity.length < 3
-        || addressState.length < 2
-        || addressStreet.length < 5
-        || addressZipCode.length < 5
-        || dba.length < 5
-        || phone.length < 10
+           locationInfo.addressCity.length < 3
+        || locationInfo.addressState.length < 2
+        || locationInfo.addressStreet.length < 5
+        || locationInfo.addressZipCode.length < 5
+        || locationInfo.dba.length < 5
+        || locationInfo.phone.length < 10
     ) && true;
 </script>
 
 <div data-testid='login-page'>
     <h3>Login</h3>
-    <input bind:value={dba}
+    <input bind:value={locationInfo.dba}
            data-testid='dba'
            type='text'
            name='dba'
            placeholder='Business name'/>
-    <input bind:value={phone}
+    <input bind:value={locationInfo.phone}
            data-testid='phone'
            type='tel'
            name='phone'
            placeholder='Phone'/>
-    <select data-testid="dropdown" bind:value={selected}>
+    <select data-testid="dropdown" bind:value={locationInfo.selected}>
         {#each recyclables as recyclable}
             <option value={recyclable}>{recyclable.name}</option>
         {/each}
     </select>
-    <p id="user-selection">Your selection: {selected.name}</p>
-    <input bind:value={addressCity}
+    <p id="user-selection">Your selection: {locationInfo.selected.name}</p>
+    <input bind:value={locationInfo.addressCity}
            data-testid='addressCity'
            type='text'
            name='addressCity'
            placeholder='City'/>
-    <input bind:value={addressState}
+    <input bind:value={locationInfo.addressState}
            data-testid='addressState'
            type='text'
            name='addressState'
            placeholder='OH'/>
-    <input bind:value={addressStreet}
+    <input bind:value={locationInfo.addressStreet}
            data-testid='addressStreet'
            type='text'
            name='addressStreet'
            placeholder='City'/>
-    <input bind:value={addressZipCode}
+    <input bind:value={locationInfo.addressZipCode}
            data-testid='addressZipCode'
            type='addressState'
            name='addressZipCode'
@@ -71,7 +72,7 @@
         <button name="submit" disabled>submit</button>
     {:else}
         <button name="submit"
-                on:click|preventDefault={submissionHandler}>
+                on:click|preventDefault={()=>submissionHandler(locationInfo)}>
             submit
         </button>
     {/if}
