@@ -7,7 +7,8 @@
     "c": "jest --coverage",
     "dev": "rollup -c -w",
     "start": "sirv public --no-clear",
-    "test": "jest --watch --colors --coverage"
+    "test": "jest --watch --colors --coverage",
+    "watch": "jest --watchAll"
   },
   "devDependencies": {
     "@babel/preset-env": "^7.15.6",

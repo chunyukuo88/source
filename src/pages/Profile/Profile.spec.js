@@ -23,7 +23,7 @@ describe('WHEN: There is no user in the store user clicks the logout button', ()
     it('THEN: The handleLogout function is invoked.', ()=>{
         user.set(null);
         const { debug } = render(Profile);
-        debug();
+        // debug();
         const welcome = screen.queryByTestId('welcome');
         const expectedContent = `welcome, undefined`;
 
