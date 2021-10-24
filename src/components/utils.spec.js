@@ -1,6 +1,7 @@
-import { LocationInfo, submissionHandler, inputsAreTooShort } from './utils';
+import { submissionHandler, inputsAreTooShort } from './utils';
 import { getDatabase, ref, set } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
+import {LocationInfo} from "../utils/LocationInfo";
 
 
 jest.mock('firebase/app');

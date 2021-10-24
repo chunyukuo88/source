@@ -1,10 +1,10 @@
 <script>
-    import { LocationInfo,
-        submissionHandler,
+    import { submissionHandler,
         inputsAreTooShort
     } from './utils';
-    import { v4 as uuidv4 } from 'uuid';
+    import { createLocationInfo } from '../utils/LocationInfo';
 
+    // TODO: Figure out how to organize this and where best to put it.
     const recyclables = [
         { id: 1, category: 'automotive', name: 'motor oil'},
         { id: 2, category: 'automotive', name: 'car battery'},
@@ -12,8 +12,7 @@
         { id: 4, category: 'automotive', name: 'vehicle'},
     ];
 
-    let locationId = uuidv4();
-    let locationInfo = new LocationInfo(locationId);
+    let locationInfo = createLocationInfo();
 
     $: isDisabled = (inputsAreTooShort(locationInfo)) && true;
 </script>

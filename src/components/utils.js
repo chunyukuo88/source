@@ -1,6 +1,6 @@
-import { getDatabase, ref, set } from 'firebase/database';
-import { initializeApp } from 'firebase/app';
-import { firebaseConfig } from '../../config/config';
+import {getDatabase, ref, set} from 'firebase/database';
+import {initializeApp} from 'firebase/app';
+import {firebaseConfig} from '../../config/config';
 
 initializeApp(firebaseConfig)
 
@@ -27,19 +27,4 @@ export const inputsAreTooShort = (locationInfo) => {
     );
 };
 
-export class LocationInfo {
-    id = '';
-    constructor(locationId) {
-        this.id = locationId;
-    }
-    addressCity = '';
-    addressState = '';
-    addressStreet = '';
-    addressZipCode = '';
-    dba = '';
-    phone = '';
-    note = '';
-    selected = {
-        name: 'none'
-    };
-};
+;
