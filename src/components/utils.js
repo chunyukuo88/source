@@ -1,5 +1,5 @@
-import {getDatabase, ref, set} from 'firebase/database';
-import {initializeApp} from 'firebase/app';
+import { getDatabase, ref, set } from 'firebase/database';
+import { initializeApp } from 'firebase/app';
 import {firebaseConfig} from '../../config/config';
 
 initializeApp(firebaseConfig)
@@ -26,5 +26,3 @@ export const inputsAreTooShort = (locationInfo) => {
         || locationInfo.phone.length < 10
     );
 };
-
-;

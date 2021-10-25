@@ -3,6 +3,7 @@
         inputsAreTooShort
     } from './utils';
     import { createLocationInfo } from '../utils/LocationInfo';
+    import { onMount } from "svelte";
 
     // TODO: Figure out how to organize this and where best to put it.
     const recyclables = [
@@ -61,6 +62,7 @@
            name='note'
            placeholder='Note'/>
     {#if isDisabled}
+        <p>test</p>
         <button name="submit" disabled>submit</button>
     {:else}
         <button name="submit"
