@@ -4,20 +4,38 @@ import '@testing-library/jest-dom';
 import { submissionHandler } from './utils';
 import userEvent from '@testing-library/user-event';
 import { tick } from "svelte";
+import { createLocationInfo } from '../utils/LocationInfo';
 
 jest.mock('./utils');
+jest.mock('../utils/LocationInfo');
 
 const expectedFormData = {
     addressCity: 'Killadelphia',
     addressState: '...of disaster',
     addressStreet: '123 Sesame Street',
     addressZipCode: '12345',
+    id: '123',
+    note: '',
     dba: 'Al\'s Used Fireworks',
     phone: '1-800-EXLAX',
     selected: {
         category: 'automotive',
         id: 3,
         name: 'tires'
+    },
+};
+
+const emptyFormData = {
+    id: '123',
+    addressCity: '',
+    addressState: '',
+    addressStreet: '',
+    addressZipCode: '',
+    dba: '',
+    phone: '',
+    note: '',
+    selected: {
+        name: 'none'
     },
 };
 
@@ -39,18 +57,21 @@ function getFormInputs(){
     return { addressCity, addressState, addressStreet, addressZipCode, dba, phone };
 }
 
+beforeEach(()=>{
+    createLocationInfo.mockImplementation(()=> emptyFormData);
+});
+afterEach(async () => {
+    jest.clearAllMocks();
+});
+
 describe('Interactions', ()=>{
-    beforeEach(()=>{
-       jest.clearAllMocks();
-    });
     describe('WHEN: The user has not yet selected a recyclable,', ()=>{
        it('THEN: That selection string says none have been selected.', ()=>{
            render(LocationForm);
 
            const selection = document.querySelector('#user-selection');
 
-           // expect(selection).toHaveTextContent('none');
-           expect(selection).toBeInTheDocument();
+           expect(selection).toHaveTextContent('none');
        });
     });
     describe('WHEN: The user selects a recyclable,', ()=>{
@@ -58,15 +79,14 @@ describe('Interactions', ()=>{
            render(LocationForm);
            const dropdown = screen.getByTestId('dropdown');
            let selection = document.querySelector('#user-selection');
-           expect(selection).toHaveTextContent('none');
+           expect(selection).toHaveTextContent(' ');
 
-           await userEvent.selectOptions(dropdown, 'tires')
+           await userEvent.selectOptions(dropdown, 'tires');
            const options  = await document.querySelectorAll('option');
 
            expect(options[0].selected).toBeFalsy();
            expect(options[1].selected).toBeFalsy();
            expect(options[2].selected).toBeTruthy();
-           expect(options[3].selected).toBeFalsy();
            selection = document.querySelector('#user-selection');
            expect(selection).toHaveTextContent('Your selection: tires');
        });
@@ -91,16 +111,17 @@ describe('Interactions', ()=>{
         describe('WHEN: The user clicks the submit button,', ()=>{
             it('THEN: The submission handler is invoked with the form data.', async ()=>{
                 render(LocationForm);
-                const { addressCity, addressState, addressStreet, addressZipCode, dba, phone } = getFormInputs();
+                const { addressCity, addressState, addressStreet, addressZipCode, dba, phone, note } = getFormInputs();
                 const dropdown = screen.getByTestId('dropdown');
 
-                await userEvent.selectOptions(dropdown, 'tires')
+                await userEvent.selectOptions(dropdown, 'tires');
                 await enterInput(addressCity, 'Killadelphia');
-                await enterInput(addressState, '...of disaster')
-                await enterInput(addressStreet, '123 Sesame Street')
-                await enterInput(addressZipCode, '12345')
-                await enterInput(dba, 'Al\'s Used Fireworks')
-                await enterInput(phone, '1-800-EXLAX')
+                await enterInput(addressState, '...of disaster');
+                await enterInput(addressStreet, '123 Sesame Street');
+                await enterInput(addressZipCode, '12345');
+                await enterInput(dba, 'Al\'s Used Fireworks');
+                await enterInput(phone, '1-800-EXLAX');
+                await enterInput(note, '');
 
                 const submissionButton = await screen.getByRole('button', { name: 'submit'});
 
@@ -116,22 +137,35 @@ describe('Interactions', ()=>{
             it('THEN: The submission handler is invoked with the form data.', async ()=>{
                 render(LocationForm);
                 const { addressCity, addressState, addressStreet, addressZipCode, dba, phone } = getFormInputs();
-                const formData = {...expectedFormData};
-                formData.selected = { name: 'none' };
+                let expectedFormData = {
+                    addressCity: 'Killadelphia',
+                    addressState: '...of disaster',
+                    addressStreet: '123 Sesame Street',
+                    addressZipCode: '12345',
+                    id: '123',
+                    note: '',
+                    dba: 'Al\'s Used Fireworks',
+                    phone: '1-800-EXLAX',
+                    selected: {
+                        name: 'none'
+                    },
+                };
 
                 await enterInput(addressCity, 'Killadelphia');
-                await enterInput(addressState, '...of disaster')
-                await enterInput(addressStreet, '123 Sesame Street')
-                await enterInput(addressZipCode, '12345')
-                await enterInput(dba, 'Al\'s Used Fireworks')
-                await enterInput(phone, '1-800-EXLAX')
+                await enterInput(addressState, '...of disaster');
+                await enterInput(addressStreet, '123 Sesame Street');
+                await enterInput(addressZipCode, '12345');
+                await enterInput(dba, 'Al\'s Used Fireworks');
+                await enterInput(phone, '1-800-EXLAX');
 
                 const submissionButton = await screen.getByRole('button', { name: 'submit'});
 
                 await fireEvent.click(submissionButton);
 
+                await tick();
+
                 expect(submissionHandler).toBeCalledTimes(1);
-                expect(submissionHandler).toBeCalledWith(formData);
+                expect(submissionHandler).toBeCalledWith(expectedFormData);
             });
         });
     });
