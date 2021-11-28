@@ -3,7 +3,6 @@
         inputsAreTooShort
     } from './utils';
     import { createLocationInfo } from '../utils/LocationInfo';
-    import { onMount } from "svelte";
 
     // TODO: Figure out how to organize this and where best to put it.
     const recyclables = [

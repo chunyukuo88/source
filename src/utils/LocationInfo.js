@@ -14,5 +14,5 @@ export const createLocationInfo = () => {
       selected: {
           name: 'none'
       },
-  }
+  };
 };

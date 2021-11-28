@@ -1,7 +1,7 @@
 import { submissionHandler, inputsAreTooShort } from './utils';
 import { getDatabase, ref, set } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
-import {LocationInfo} from "../utils/LocationInfo";
+import { createLocationInfo } from "../utils/LocationInfo";
 
 
 jest.mock('firebase/app');
@@ -40,7 +40,7 @@ describe('utils.js', ()=>{
         describe('WHEN: Invoked with a valid locationInfo object', ()=>{
             describe('AND: One of the inputs is too short', ()=>{
                 it('THEN: It returns true.', ()=>{
-                    const locationInfo = new LocationInfo();
+                    const locationInfo = createLocationInfo();
 
                     const result = inputsAreTooShort(locationInfo);
 
