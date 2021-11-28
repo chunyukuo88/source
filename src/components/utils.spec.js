@@ -1,8 +1,7 @@
 import { submissionHandler, inputsAreTooShort } from './utils';
 import { getDatabase, ref, set } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
-import { createLocationInfo } from "../utils/LocationInfo";
-
+import { createLocationInfo } from '../utils/LocationInfo';
 
 jest.mock('firebase/app');
 jest.mock('firebase/database');
@@ -33,6 +32,23 @@ describe('utils.js', ()=>{
 
                expect(set).toHaveBeenCalledTimes(1);
                expect(set).toHaveBeenCalledWith({}, locationInfo);
+           });
+       });
+        describe('WHEN: Invoked with an invalid locationInfo object', ()=>{
+           it('THEN: It throws an error.', async ()=>{
+               window.alert = () => {};
+               const spy = jest.spyOn(window, 'alert');
+               const mockDatabase = {};
+               getDatabase.mockImplementation(jest.fn().mockReturnValue(mockDatabase));
+               ref.mockImplementation(jest.fn().mockReturnValue({}));
+               const mockError = new Error('database error');
+               set.mockImplementationOnce(()=> {
+                   throw mockError;
+               });
+
+               await submissionHandler(locationInfo);
+
+               expect(spy).toBeCalledWith(mockError);
            });
        });
     });

@@ -7,13 +7,14 @@ initializeApp(firebaseConfig)
 const baseUrl = (id) => `/locations/${id}`;
 
 export function submissionHandler(locationInfo){
-    // TODO: do try/catch for this.
-    const database = getDatabase();
-    const { id } = locationInfo;
-    const url = baseUrl(id);
-    set(ref(database, url), locationInfo);
-    console.log(`submissionHandler(): ${url}`);
-
+    try {
+        const database = getDatabase();
+        const { id } = locationInfo;
+        const url = baseUrl(id);
+        set(ref(database, url), locationInfo);
+    } catch (e) {
+        alert(e);
+    }
 };
 
 export const inputsAreTooShort = (locationInfo) => {
