@@ -1,6 +1,10 @@
 <script>
-    import { submissionHandler } from './utils';
+    import { submissionHandler,
+        inputsAreTooShort
+    } from './utils';
+    import { createLocationInfo } from '../utils/LocationInfo';
 
+    // TODO: Figure out how to organize this and where best to put it.
     const recyclables = [
         { id: 1, category: 'automotive', name: 'motor oil'},
         { id: 2, category: 'automotive', name: 'car battery'},
@@ -8,26 +12,9 @@
         { id: 4, category: 'automotive', name: 'vehicle'},
     ];
 
-    let locationInfo = {
-        addressCity: '',
-        addressState: '',
-        addressStreet: '',
-        addressZipCode: '',
-        dba: '',
-        phone: '',
-        selected: {
-            name: 'none'
-        },
-    };
+    let locationInfo = createLocationInfo();
 
-    $: isDisabled = (
-           locationInfo.addressCity.length < 3
-        || locationInfo.addressState.length < 2
-        || locationInfo.addressStreet.length < 5
-        || locationInfo.addressZipCode.length < 5
-        || locationInfo.dba.length < 5
-        || locationInfo.phone.length < 10
-    ) && true;
+    $: isDisabled = (inputsAreTooShort(locationInfo)) && true;
 </script>
 
 <div data-testid='login-page'>
@@ -68,7 +55,13 @@
            type='addressState'
            name='addressZipCode'
            placeholder='Zip code'/>
+    <input bind:value={locationInfo.note}
+           data-testid='note'
+           type='note'
+           name='note'
+           placeholder='Note'/>
     {#if isDisabled}
+        <p>test</p>
         <button name="submit" disabled>submit</button>
     {:else}
         <button name="submit"
