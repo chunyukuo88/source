@@ -1,7 +1,7 @@
 import { submissionHandler, inputsAreTooShort } from './utils';
 import { getDatabase, ref, set } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
-import { createLocationInfo } from '../utils/LocationInfo';
+import { createLocationInfo } from '../utils/locationUtils';
 
 jest.mock('firebase/app');
 jest.mock('firebase/database');

@@ -1,13 +1,11 @@
 import LocationForm from './LocationForm.svelte';
 import { fireEvent, render, screen, cleanup } from '@testing-library/svelte';
 import '@testing-library/jest-dom';
-import {inputsAreTooShort, submissionHandler} from './utils';
+import { inputsAreTooShort, submissionHandler } from './utils';
 import userEvent from '@testing-library/user-event';
-import { createLocationInfo } from '../utils/LocationInfo';
+import { createLocationInfo } from '../utils/locationUtils';
 
-jest.mock('./utils');
-jest.mock('../utils/LocationInfo');
-
+jest.mock('../utils/locationUtils');
 const expectedFormData = {
     addressCity: 'Killadelphia',
     addressState: '...of disaster',
@@ -23,7 +21,6 @@ const expectedFormData = {
         name: 'tires'
     },
 };
-
 const emptyFormData = {
     id: '123',
     addressCity: '',
@@ -37,7 +34,6 @@ const emptyFormData = {
         name: 'none'
     },
 };
-
 async function enterInput(element, string) {
     fireEvent.input(element, {
         target: {
@@ -45,7 +41,6 @@ async function enterInput(element, string) {
         },
     });
 }
-
 function getFormInputs(){
     const addressCity = screen.getByTestId('addressCity');
     const addressState = screen.getByTestId('addressState');
@@ -55,6 +50,16 @@ function getFormInputs(){
     const phone = screen.getByTestId('phone');
     return { addressCity, addressState, addressStreet, addressZipCode, dba, phone };
 }
+jest.mock('./utils', ()=>{
+    const originalModule = jest.requireActual('./utils');
+    return {
+        __esModule: true,
+        ...originalModule,
+        submissionHandler: jest.fn(),
+        inputsAreTooShort: jest.fn()
+    };
+});
+
 
 beforeEach(()=>{
     createLocationInfo.mockImplementation(()=> emptyFormData);
@@ -129,11 +134,10 @@ describe('Interactions', ()=>{
     describe('GIVEN: The form is incomplete', ()=>{
         describe('WHEN: The user clicks the submit button,', ()=>{
             it('THEN: The submission button is not clickable.', async ()=>{
-              submissionHandler.mockImplementation(jest.fn());
-              inputsAreTooShort.mockImplementation(()=>true);
-              render(LocationForm);
+                inputsAreTooShort.mockImplementation(()=>true);
+                render(LocationForm);
 
-              const submissionButton = screen.queryByRole('button', { name: 'submit'});
+              const submissionButton = screen.queryByRole('button', { name: 'form incomplete'});
               await fireEvent.click(submissionButton);
 
               expect(submissionButton).toBeInTheDocument();

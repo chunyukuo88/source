@@ -1,16 +1,6 @@
 <script>
-    import { submissionHandler,
-        inputsAreTooShort
-    } from './utils';
-    import { createLocationInfo } from '../utils/LocationInfo';
-
-    // TODO: Figure out how to organize this and where best to put it.
-    const recyclables = [
-        { id: 1, category: 'automotive', name: 'motor oil'},
-        { id: 2, category: 'automotive', name: 'car battery'},
-        { id: 3, category: 'automotive', name: 'tires'},
-        { id: 4, category: 'automotive', name: 'vehicle'},
-    ];
+    import { submissionHandler, inputsAreTooShort, recyclables } from './utils';
+    import { createLocationInfo } from '../utils/locationUtils';
 
     let locationInfo = createLocationInfo();
 
@@ -29,12 +19,12 @@
            type='tel'
            name='phone'
            placeholder='Phone'/>
-    <select data-testid="dropdown" bind:value={locationInfo.selected}>
+    <select data-testid='dropdown' bind:value={locationInfo.selected}>
         {#each recyclables as recyclable}
             <option value={recyclable}>{recyclable.name}</option>
         {/each}
     </select>
-    <p id="user-selection">Your selection: {locationInfo.selected.name}</p>
+    <p id='user-selection'>Your selection: {locationInfo.selected.name}</p>
     <input bind:value={locationInfo.addressCity}
            data-testid='addressCity'
            type='text'
@@ -62,10 +52,13 @@
            placeholder='Note'/>
     {#if isDisabled}
         <p>test</p>
-        <button name="submit" disabled>submit</button>
+        <button name='disabled-submit-button' disabled>
+            form incomplete
+        </button>
     {:else}
-        <button name="submit"
-                on:click|preventDefault={()=>submissionHandler(locationInfo)}>
+        <button name='enabled-submit-button'
+                on:click|preventDefault={()=>submissionHandler(locationInfo)}
+        >
             submit
         </button>
     {/if}
